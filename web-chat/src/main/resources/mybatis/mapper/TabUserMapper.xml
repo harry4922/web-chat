@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  
+ * 角色表						tab_role
+ * 角色ID						role_id									BIGINT								PRIMARY KEY							AUTO_INCREMENT
+ * 角色名称						role_name								VARCHAR(255)
+ * 登录权限						is_logonable							BOOLEAN								DEFAULT false
+ * 管理者权限					is_admin								BOOLEAN								DEFAILT false
+ * 创建群聊权限					is_group_creater						BOOLEAN								DEFAULT false -->
+<mapper namespace="com.hanslv.webchat.commons.dao.TabUserDao">
+
+</mapper>

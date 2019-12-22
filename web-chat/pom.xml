@@ -5,12 +5,63 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>web-chat</name>
   
+  <properties>
+  	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  	<java.version>1.8</java.version>
+  	<springboot.version>2.1.7.RELEASE</springboot.version>
+  	<swagger.version>2.9.2</swagger.version>
+  </properties>
+  
   <dependencies>
+  	<!-- ======================springBoot配置====================== -->
   	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-web -->
 	<dependency>
 	    <groupId>org.springframework.boot</groupId>
 	    <artifactId>spring-boot-starter-web</artifactId>
-	    <version>2.1.7.RELEASE</version>
+	    <version>${springboot.version}</version>
 	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-devtools</artifactId>
+	    <version>${springboot.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+	<dependency>
+	    <groupId>org.mybatis.spring.boot</groupId>
+	    <artifactId>mybatis-spring-boot-starter</artifactId>
+	    <version>${springboot.version}</version>
+	</dependency>
+	
+	
+	
+	
+	
+	<!-- ======================swagger配置====================== -->
+	<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger2</artifactId>
+	    <version>${swagger.version}</version>
+	</dependency>
+	<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui -->
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger-ui</artifactId>
+	    <version>${swagger.version}</version>
+	</dependency>
+	
+	
+	
+	<!-- ======================lombok配置====================== -->
+	<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+	<dependency>
+	    <groupId>org.projectlombok</groupId>
+	    <artifactId>lombok</artifactId>
+	    <version>1.18.8</version>
+	    <scope>provided</scope>
+	</dependency>
+	
   </dependencies>
 </project>
