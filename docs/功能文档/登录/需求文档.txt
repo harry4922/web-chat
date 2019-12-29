@@ -15,5 +15,5 @@
 6、创建tab_roleDAO
 7、创建加密与解密Util
 8、创建logonService类
-9、在logonService类中创建根据用户名、密码查询用户信息的方法并返回查询结果
+9、在logonService类中创建根据用户名、密码查询用户信息的方法并返回查询结果，若用户名、密码匹配则记录用户登录状态
 10、在logonController类中创建Request：/logon/logonCheck，并调用logonService，根据返回结果判断返回指向的页面
