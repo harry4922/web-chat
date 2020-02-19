@@ -20,6 +20,13 @@ import lombok.Data;
 @Data
 @ApiModel(value="用户表" , description="包含用户的基本信息，登录名、真实姓名、电话、角色、当前是否在线等")
 public class TabUser {
+	public static final String JSON_USERNAME_KEY = "userName";//用户名Json中的key
+	public static final String JSON_PASSWORD_KEY = "userPassword";//用户密码Json中的key
+	public static final String JSON_REALNAME_KEY = "userRealName";//用户真实姓名Json中的key
+	public static final String JSON_MOBEL_KEY = "userMobel";//用户联系电话Json中的key
+	public static final String JSON_MAIL_KEY = "userMail";//用户邮箱Json中的key
+	
+	
 	@ApiModelProperty(value="用户ID" , required=true , position=1)
 	private Integer userId;
 	@ApiModelProperty(value="用户登录名" , required=true , position=2)

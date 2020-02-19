@@ -10,6 +10,10 @@ import com.hanslv.webchat.commons.util.PassUtil;
 
 /**
  * 登录服务类
+ * 
+ * ---------------------------------------------------
+ * 1、验证密码是否正确								public String checkLogon(String username , String pass)
+ * ---------------------------------------------------
  * @author hanslv
  *
  */

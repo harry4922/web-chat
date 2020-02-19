@@ -1,4 +1,14 @@
 /**
+ * 页面载入时执行
+ */
+window.onload = function(){
+	/*
+	 * 1、拼接注册页面信息到<a>
+	 */
+	$("#logon_toRegister").attr("href" , to_register_url);
+}
+
+/**
  * 提交当前用户输入的登录信息
  * @returns
  */

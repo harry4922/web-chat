@@ -1,6 +1,8 @@
 //======================常量======================
 var base_url = "http://localhost:8081/";
 var logon_submit_url = base_url + "logon/dologon";
+var to_register_url = base_url + "register/toRegister";
+var do_register_url = base_url + "register/doRegister";
 
 
 

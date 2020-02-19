@@ -13,7 +13,7 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
             <!-- 按天回滚 daily -->  
             <!-- log.dir 在maven profile里配置 -->  
-            <fileNamePattern>./log/error/daotong-error-%d{yyyy-MM-dd}.log</fileNamePattern>  
+            <fileNamePattern>./log/error/webchat-error-%d{yyyy-MM-dd}.log</fileNamePattern>  
             <!-- 日志最大的历史 60天 -->  
             <maxHistory>60</maxHistory>  
         </rollingPolicy>  
@@ -31,7 +31,7 @@
     <appender name="WARN" class="ch.qos.logback.core.rolling.RollingFileAppender">  
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
             <!-- 按天回滚 daily -->  
-            <fileNamePattern>./log/warn/daotong-warn-%d{yyyy-MM-dd}.log</fileNamePattern>  
+            <fileNamePattern>./log/warn/webchat-warn-%d{yyyy-MM-dd}.log</fileNamePattern>  
             <!-- 日志最大的历史 60天 -->  
             <maxHistory>60</maxHistory>  
         </rollingPolicy>  
@@ -49,7 +49,7 @@
     <appender name="INFO" class="ch.qos.logback.core.rolling.RollingFileAppender">  
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
             <!-- 按天回滚 daily -->  
-            <fileNamePattern>./log/info/daotong-info-%d{yyyy-MM-dd}.log</fileNamePattern>  
+            <fileNamePattern>./log/info/webchat-info-%d{yyyy-MM-dd}.log</fileNamePattern>  
             <!-- 日志最大的历史 60天 -->  
             <maxHistory>60</maxHistory>  
         </rollingPolicy>  
@@ -63,16 +63,21 @@
             <onMismatch>DENY</onMismatch>  
         </filter>  
     </appender>  
-    <!--日志打印的包的范围，及分类日志文件存储 -->  
-    <logger name="com.daotonginfo.manage" additivity="false">
+    <!--日志的包范围，该包下的类产生日志会被记录到日志文件 -->  
+    <!--
+     <logger name="com.hanslv.webchat" additivity="false">
         <level value="INFO" />  
         <appender-ref ref="STDOUT"/>  
         <appender-ref ref="ERROR"/>  
         <appender-ref ref="WARN"/>  
         <appender-ref ref="INFO" />  
     </logger>  
-    <!--控制台打印资源加载信息-->  
+     -->
+    <!-- 日志打印级别范围 -->
     <root level="info">  
-        <appender-ref ref="STDOUT" />  
+        <appender-ref ref="STDOUT"/>
+        <appender-ref ref="ERROR"/>
+        <appender-ref ref="WARN"/>
+        <appender-ref ref="INFO"/>
     </root>  
 </configuration>

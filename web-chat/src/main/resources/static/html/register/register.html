@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>web-chat注册页面</title>
+		<meta charset="UTF-8">
+		<script type="text/javascript" src="/js/register/register.js"></script>
+		<script type="text/javascript" src="/js/commons/constants.js"></script>
+		<script type="text/javascript" src="/js/jquery-3.3.1.js"></script>
+	</head>
+	<body>
+		<h2>加入web-chat</h2>
+		<!-- 用户名 -->
+		<div id="register_infos">
+			用户名：<input type="text" id="register_username" value="设置您的登录名"/><!-- 对应数据库中user_name -->
+			密码：<input type="password" id="register_password"/><!-- 对应数据库中user_password -->
+			真实姓名：<input type="text" id="register_realName" value="请输入您的真实姓名"/><!-- 对应数据库中user_real_name -->
+			联系电话：<input type="text" id="register_mobel" value="请输入您的电话"/><!-- 对应数据库中user_mobel -->
+			邮箱：<input type="text" id="register_mail" value="请输入您的邮箱"/><!-- 对应数据库中user_mail -->
+			<input type="button" id="register_doRegister" value="提交" onclick="doRegister();"/>
+		</div>
+	</body>
+</html>

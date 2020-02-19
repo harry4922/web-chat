@@ -1,0 +1,11 @@
+步骤1
+1、创建注册页面/HOME/register/register.html
+2、创建注册页面路径常量
+3、创建RegisterController类
+4、在RegisterController中创建/register/toRegister请求
+5、在/HOME/logon/logon.html中添加访问/HOME/register/register.html链接
+6、在RegisterController中创建/register/doRegister请求
+7、用户注册落库逻辑
+
+
+
