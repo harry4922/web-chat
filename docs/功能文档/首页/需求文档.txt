@@ -1,0 +1,46 @@
+步骤1
+1、创建聊天信息存储表（需要进行分表操作）
+聊天信息表											tab_chat_info
+用户ID												user_id										BIGINT									PRIMARY KEY					FOREIGN_KEY fk_chat_user
+对方用户ID											other_user_id								BIGINT									PRIMARY KEY					FOREIGN_KEY fk_chat_other_user
+当前信息版本号										version										BIGINT									PRIMARY KEY
+聊天内容											chat_content								VARCHAR(255)
+
+CREATE TABLE tab_chat_info
+(
+	user_id BIGINT,
+	other_user_id BIGINT,
+	version BIGINT,
+	chat_content VARCHAR(255),
+	PRIMARY KEY (user_id , other_user_id , version),
+	CONSTRAINT fk_chat_user FOREIGN KEY (user_id) REFERENCES tab_user (user_id),
+	CONSTRAINT fk_chat_other_user FOREIGN KEY (other_user_id) REFERENCES tab_user (user_id)
+)
+ENGINE=INNODB DEFAULT CHARSET=UTF8;
+2、聊天信息表设计分表存储逻辑
+根据版本号进行分表，个位以01结尾为表1、个位以23结尾为表2、个位以45结尾为表3，以此类推共分为5张表（01、23、45、67、89）
+判断时获取当前版本号最后一位，x / 2 + 1为当前需要插入的分表
+3、初始化版本信息Map：key = username , value = currentVersion
+4、启动服务时需要载入用户列表中的username、version信息到初始化Map中
+5、在登录成功后添加当前用户tab_user信息到session中
+6、创建/HOME/home/homepage.html文件
+7、创建ChatController类
+8、在ChatController中添加/chat/sendMessage请求
+9、在ChatController中添加/chat/receiveMessage请求
+10、创建ChatService类
+11、创建TabChatInfoDao
+12、在TabChatInfoDao中创建insertOne方法，插入一条聊天记录
+13、在TabChatInfoDao中创建selectOldInfoByUserIdAndVersion方法，获取当前用户指定版本号之前的全部消息记录
+14、在TabChatInfoDao中创建selectNewInfoByUserIdAndVersion方法，获取当前用户指定版本号之后的全部消息记录
+15、在TabUserDao中创建updateVersionByUser方法，更新某一用户的版本号
+16、在ChatService类中创建接收消息的处理方法
+17、在ChatService类中创建发送消息的处理方法
+
+
+
+
+
+
+
+
+

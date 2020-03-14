@@ -25,7 +25,7 @@ public interface TabUserDao {
 	 * @param userName
 	 * @return
 	 */
-	@Select("SELECT user_id , user_name , user_real_name , user_mobel , user_mail , user_password , is_logon , role_id FROM tab_user WHERE user_name = #{userName}")
+	@Select("SELECT user_id , user_name , user_real_name , user_mobel , user_mail , user_password , last_version , role_id FROM tab_user WHERE user_name = #{userName}")
 	public TabUser getUserByUsername(@Param("userName")String userName);
 	
 	/**
