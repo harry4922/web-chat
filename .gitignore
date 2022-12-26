@@ -15,7 +15,6 @@ information regarding copyright ownership.
 #
 # SPDX-License-Identifier: Apache-2.0
 ################################################################################
-code/src/main/resources/application.yml
 target/
 .idea/*
 *.iml

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true">
+    <contextName>VendPlat30</contextName>
+    <timestamp key="TIMESTAMP" datePattern="yyyy-MM-dd" />
+    <property name="LOGPATH" value="logs/" />
+    <property name="LOGPRE" value="jaeger-" />
+    <!-- 输出到控制台 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{40} - %msg%n
+            </pattern>
+        </layout>
+    </appender>
+    <!-- 输出到文件 -->
+    <appender name="fileLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGPATH}${file.separator}${LOGPRE}${TIMESTAMP}.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{40} - %msg%n
+            </pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 每日展期 -->
+            <fileNamePattern>${LOGPATH}${file.separator}all${file.separator}${LOGPRE}%d.%i.log</fileNamePattern>
+            <!-- 每个文件最多10MB，保留30天的历史记录 -->
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+    <!-- 项目本身日志设置 -->
+    <logger name="com.grstudy.service" additivity="false" level="info">
+        <appender-ref ref="stdout" />
+        <appender-ref ref="fileLog" />
+    </logger>
+    <!-- mybatis日志配置 -->
+    <logger name="com.apache.ibatis" level="TRACE"/>
+    <logger name="org.apache.ibatis.transaction.managed" level="ERROR" addtivit="false"/>
+    <logger name="java.sql.Connection" level="ERROR"/>
+    <logger name="java.sql.Statement" level="ERROR"/>
+    <logger name="java.sql.PreparedStatement" level="ERROR"/>
+    <!-- activiti日志配置 -->
+    <logger name="org.activiti" level="ERROR"/>
+    <logger name="org.springframework.jdbc" level="ERROR"/>
+    <!-- quartz日志配置 -->
+    <logger name="org.quartz" level="ERROR"/>
+    <logger name="org.springframework.scheduling.quartz" level="ERROR"/>
+    <!-- spring cloud日志配置 -->
+    <logger name="com.netflix" level="ERROR"/>
+    <logger name="org.apache.http" level="ERROR"/>
+    <!-- mqtt日志配置 -->
+    <logger name="org.springframework.integration" level="ERROR"/>
+    <logger name="io.lettuce" level="ERROR"/>
+    <root level="info">
+        <appender-ref ref="fileLog" />
+        <appender-ref ref="stdout"  />
+    </root>
+</configuration>

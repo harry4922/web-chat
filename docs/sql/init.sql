@@ -1,0 +1,5 @@
+/*创建数据库*/
+CREATE DATABASE WEB_CHAT;
+
+/*切换数据库*/
+USE WEB_CHAT;
