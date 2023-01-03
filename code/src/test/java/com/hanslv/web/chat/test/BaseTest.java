@@ -9,6 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date : 2022/12/26 14:35
  */
 @Slf4j
-@SpringBootTest(classes = WebChatStarter.class)
+@SpringBootTest(classes = WebChatStarter.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BaseTest {
 }

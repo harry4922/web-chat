@@ -1,0 +1,16 @@
+一、用户信息表
+USER_INFO
+ID								ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
+姓名							NAME					VARCHAR(255)
+密码							PASS					VARCHAR(255)
+创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
+
+
+二、消息表
+MESSAGE_INFO
+ID								ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
+用户ID							USER_ID					BIGINT
+接收用户ID						RECEIVE_USER_ID			BIGINT
+消息信息						MESSAGE					VARCHAR(255)
+是否已接收						RECEIVED				BOOLEAN
+创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()

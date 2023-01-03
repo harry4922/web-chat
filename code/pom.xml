@@ -6,7 +6,7 @@
 
     <groupId>com.hanslv</groupId>
     <artifactId>web-chat</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -90,6 +90,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.61</version>
         </dependency>
+
     </dependencies>
 
 

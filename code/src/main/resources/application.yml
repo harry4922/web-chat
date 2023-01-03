@@ -4,7 +4,7 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    url: jdbc:mysql://localhost:3307/WEB_CHAT?useSSL=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/WEB_CHAT?useSSL=true&serverTimezone=GMT%2B8
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456

@@ -1,4 +1,4 @@
-package com.hanslv.web.chat.entity;
+package com.hanslv.web.chat.dto;
 
 import lombok.Data;
 
@@ -8,15 +8,15 @@ import lombok.Data;
  * 聊天消息实体
  */
 @Data
-public class ChatMessageEntity {
+public class ChatMessageDTO {
     /**
      * 用户ID
      */
-    private String userId;
+    private Integer userId;
     /**
      * 对方用户ID
      */
-    private String toUserId;
+    private Integer toUserId;
     /**
      * 消息信息
      */

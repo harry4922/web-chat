@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+ * USER_INFO
+ * ID							ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
+ * 姓名							NAME					VARCHAR(255)
+ * 密码							PASS					VARCHAR(255)
+ * 创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
+ -->
+<mapper namespace="com.hanslv.web.chat.mapper.UserInfoMapper">
+    <!-- 获取全部 -->
+    <select id="selectAll" resultType="com.hanslv.web.chat.entity.UserInfoEntity">
+        SELECT * FROM USER_INFO;
+    </select>
+
+    <!-- 删除一条用户信息 -->
+    <delete id="deleteById" parameterType="int">
+        DELETE FROM USER_INFO WHERE ID = #{id}
+    </delete>
+
+    <!-- 插入一条用户信息 -->
+    <insert id="insertOne" parameterType="com.hanslv.web.chat.entity.UserInfoEntity">
+        INSERT INTO USER_INFO (NAME, PASS) VALUES (#{userInfo.name}, #{userInfo.pass});
+    </insert>
+
+    <!-- 插入多条用户信息 -->
+    <insert id="insertBatch" parameterType="com.hanslv.web.chat.entity.UserInfoEntity">
+        INSERT INTO USER_INFO (NAME, PASS) VALUES
+        <foreach collection="userInfoList" item="item" index="index" separator=",">
+            (#{item.name}, #{item.pass})
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+ * MESSAGE_INFO
+ * ID							ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
+ * 用户ID						USER_ID					BIGINT
+ * 接收用户ID						RECEIVE_USER_ID			BIGINT
+ * 消息信息						MESSAGE					VARCHAR(255)
+ * 是否已接收						RECEIVED				BOOLEAN
+ * 创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
+ -->
+<mapper namespace="com.hanslv.web.chat.mapper.MessageInfoMapper">
+    <!-- 获取全部 -->
+    <select id="selectAll" resultType="com.hanslv.web.chat.entity.MessageInfoEntity">
+        SELECT * FROM MESSAGE_INFO;
+    </select>
+
+    <!-- 获取当前用户未读取消息 -->
+    <select id="selectByUserIdAndNotReceived" parameterType="int" resultType="com.hanslv.web.chat.entity.MessageInfoEntity">
+        SELECT * FROM MESSAGE_INFO WHERE RECEIVED = FALSE AND RECEIVE_USER_ID = #{receiveUserId}
+    </select>
+
+    <!-- 插入单条 -->
+    <insert id="insertOne" parameterType="com.hanslv.web.chat.entity.MessageInfoEntity">
+        INSERT INTO MESSAGE_INFO
+            (USER_ID, RECEIVE_USER_ID, MESSAGE, RECEIVED)
+        VALUES (#{messageInfo.userId}, #{messageInfo.receiveUserId}, #{messageInfo.message}, #{messageInfo.received})
+    </insert>
+
+    <!-- 批量插入 -->
+    <insert id="insertBatch" parameterType="com.hanslv.web.chat.entity.MessageInfoEntity">
+        INSERT INTO MESSAGE_INFO
+            (USER_ID, RECEIVE_USER_ID, MESSAGE, RECEIVED)
+        VALUES
+        <foreach collection="messageInfoList" item="item" open="(" close=")" separator=",">
+            #{item.userId}, #{item.receiveUserId}, #{item.message}, #{item.received}
+        </foreach>
+    </insert>
+
+    <!-- 将消息更新为已读 -->
+    <update id="updateMessageReceived" parameterType="int">
+        UPDATE MESSAGE_INFO SET RECEIVED = TRUE WHERE ID = #{messageId}
+    </update>
+</mapper>
