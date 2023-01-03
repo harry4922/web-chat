@@ -2,6 +2,7 @@ package com.hanslv.web.chat.handler;
 
 import com.hanslv.web.chat.dao.MessageInfoDao;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
+import com.hanslv.web.chat.enums.MessageStateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -43,36 +44,42 @@ public class MessageHandler {
     private MessageInfoDao messageInfoDao;
 
     /**
+     * 获取对应状态的消息
+     * @param userId 用户ID
+     * @param status 状态
+     * @return 未读消息
+     */
+    public List<MessageInfoEntity> getMessageByStatus(Integer userId, Integer status){
+        return messageInfoDao.selectByUserIdAndStatus(userId, status);
+    }
+
+    /**
      * 处理待持久化消息
-     * @param isMessageExist 消息是否已经存在
      * @param sendUserId 发送用户ID
      * @param receiveUserId 接收用户ID
      * @param message 消息
      */
-    public void handleNotPersistenceMessage(boolean isMessageExist, Integer sendUserId, Integer receiveUserId, String message){
-        if(!isMessageExist) {
-            // 实体
-            MessageInfoEntity messageInfoEntity = new MessageInfoEntity();
-            messageInfoEntity.setUserId(sendUserId);
-            messageInfoEntity.setReceiveUserId(receiveUserId);
-            messageInfoEntity.setMessage(message);
-            messageInfoEntity.setReceived(false);
-            // 存入待持久化池
-            if (nppbFlag.get()) {
-                nppb.add(messageInfoEntity);
-            } else {
-                npp.add(messageInfoEntity);
-            }
+    public void handleNotPersistenceMessage(Integer sendUserId, Integer receiveUserId, String message){
+        // 实体
+        MessageInfoEntity messageInfoEntity = new MessageInfoEntity();
+        messageInfoEntity.setUserId(sendUserId);
+        messageInfoEntity.setReceiveUserId(receiveUserId);
+        messageInfoEntity.setMessage(message);
+        messageInfoEntity.setStatus(MessageStateEnum.NOT_RECEIVED.getCode());
+        // 存入待持久化池
+        if (nppbFlag.get()) {
+            nppb.add(messageInfoEntity);
+        } else {
+            npp.add(messageInfoEntity);
         }
     }
 
     /**
-     * 获取未读消息
-     * @param userId 用户ID
-     * @return 未读消息
+     * 更新消息状态
+     * @param messageId 消息ID
+     * @param status 状态
      */
-    public List<MessageInfoEntity> getNotReceivedMessage(Integer userId){
-        return messageInfoDao.selectByUserIdAndNotReceived(userId);
+    public void updateMessageStatus(Integer messageId, Integer status){
+        messageInfoDao.updateMessageStatus(messageId, status);
     }
-
 }

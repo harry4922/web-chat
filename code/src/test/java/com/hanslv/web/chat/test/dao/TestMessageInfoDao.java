@@ -2,6 +2,7 @@ package com.hanslv.web.chat.test.dao;
 
 import com.hanslv.web.chat.dao.MessageInfoDao;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
+import com.hanslv.web.chat.enums.MessageStateEnum;
 import com.hanslv.web.chat.test.BaseTest;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class TestMessageInfoDao extends BaseTest {
 
     @Test
     public void testGetNotReceivedMessage(){
-        List<MessageInfoEntity> notReceivedMessage = messageInfoDao.selectByUserIdAndNotReceived(223);
+        List<MessageInfoEntity> notReceivedMessage = messageInfoDao.selectByUserIdAndStatus(223, MessageStateEnum.NOT_RECEIVED.getCode());
         notReceivedMessage.forEach(message -> log.info(message.toString()));
     }
 }

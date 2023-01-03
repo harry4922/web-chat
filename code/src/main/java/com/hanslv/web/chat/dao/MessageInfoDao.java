@@ -27,12 +27,13 @@ public class MessageInfoDao {
     }
 
     /**
-     * 获取当前用户未读取消息
+     * 获取当前用户指定状态的消息
      * @param receiveUserId 接收方用户ID
-     * @return 未读取消息
+     * @param status 消息状态
+     * @return 消息List
      */
-    public List<MessageInfoEntity> selectByUserIdAndNotReceived(Integer receiveUserId){
-        return messageInfoMapper.selectByUserIdAndNotReceived(receiveUserId);
+    public List<MessageInfoEntity> selectByUserIdAndStatus(Integer receiveUserId, Integer status){
+        return messageInfoMapper.selectByUserIdAndStatus(receiveUserId, status);
     }
 
     /**
@@ -56,8 +57,9 @@ public class MessageInfoDao {
     /**
      * 将消息更新为已读
      * @param messageId 消息ID
+     * @param status 消息状态
      */
-    public void updateMessageReceived(Integer messageId){
-        messageInfoMapper.updateMessageReceived(messageId);
+    public void updateMessageStatus(Integer messageId, Integer status){
+        messageInfoMapper.updateMessageStatus(messageId, status);
     }
 }

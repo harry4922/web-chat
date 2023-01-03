@@ -15,7 +15,7 @@ import java.sql.Timestamp;
  * 用户ID						USER_ID					BIGINT
  * 接收用户ID						RECEIVE_USER_ID			BIGINT
  * 消息信息						MESSAGE					VARCHAR(255)
- * 是否已接收						RECEIVED				BOOLEAN
+ * 消息状态						STATUS					INT
  * 创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
  */
 @Data
@@ -37,9 +37,9 @@ public class MessageInfoEntity {
      */
     private String message;
     /**
-     * 是否已接收
+     * 消息状态
      */
-    private Boolean received;
+    private Integer status;
     /**
      * 创建时间
      */

@@ -23,9 +23,12 @@ public interface MessageInfoMapper {
     /**
      * 获取当前用户未读取消息
      * @param receiveUserId 接收方用户ID
-     * @return 未读取消息
+     * @param status 消息状态
+     * @return 指定状态的消息
      */
-    List<MessageInfoEntity> selectByUserIdAndNotReceived(@Param("receiveUserId") Integer receiveUserId);
+    List<MessageInfoEntity> selectByUserIdAndStatus(
+            @Param("receiveUserId") Integer receiveUserId,
+            @Param("status")Integer status);
 
     /**
      * 插入单条
@@ -40,8 +43,11 @@ public interface MessageInfoMapper {
     void insertBatch(@Param("messageInfoList") List<MessageInfoEntity> messageInfoList);
 
     /**
-     * 将消息更新为已读
+     *
      * @param messageId 消息ID
+     * @param status 消息状态
      */
-    void updateMessageReceived(@Param("id")Integer messageId);
+    void updateMessageStatus(
+            @Param("messageId")Integer messageId,
+            @Param("status")Integer status);
 }
