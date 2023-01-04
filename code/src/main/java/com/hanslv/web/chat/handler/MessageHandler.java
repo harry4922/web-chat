@@ -1,7 +1,9 @@
 package com.hanslv.web.chat.handler;
 
 import com.hanslv.web.chat.dao.MessageInfoDao;
+import com.hanslv.web.chat.dao.SessionInfoDao;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
+import com.hanslv.web.chat.entity.SessionInfoEntity;
 import com.hanslv.web.chat.enums.MessageStateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,6 +45,9 @@ public class MessageHandler {
     @Autowired
     private MessageInfoDao messageInfoDao;
 
+    @Autowired
+    private SessionInfoDao sessionInfoDao;
+
     /**
      * 获取对应状态的消息
      * @param userId 用户ID
@@ -60,8 +65,11 @@ public class MessageHandler {
      * @param message 消息
      */
     public void handleNotPersistenceMessage(Integer sendUserId, Integer receiveUserId, String message){
+        // 会话ID
+        Integer sessionId = getSessionId(sendUserId, receiveUserId);
         // 实体
         MessageInfoEntity messageInfoEntity = new MessageInfoEntity();
+        messageInfoEntity.setSessionId(sessionId);
         messageInfoEntity.setUserId(sendUserId);
         messageInfoEntity.setReceiveUserId(receiveUserId);
         messageInfoEntity.setMessage(message);
@@ -81,5 +89,44 @@ public class MessageHandler {
      */
     public void updateMessageStatus(Integer messageId, Integer status){
         messageInfoDao.updateMessageStatus(messageId, status);
+    }
+
+
+    /**
+     * 插入一条消息
+     * @param userId 用户ID
+     * @param receiveUserId 接收方ID
+     * @param message 消息
+     * @param status 消息状态
+     */
+    public void insertMessage(Integer userId, Integer receiveUserId, String message, int status){
+        // 会话ID
+        Integer sessionId = getSessionId(userId, receiveUserId);
+        MessageInfoEntity info = new MessageInfoEntity();
+        info.setSessionId(sessionId);
+        info.setUserId(userId);
+        info.setReceiveUserId(receiveUserId);
+        info.setMessage(message);
+        info.setStatus(status);
+        messageInfoDao.insertOne(info);
+    }
+
+
+    /**
+     * 获取SessionId
+     * @param userId 用户ID
+     * @param receiveUserId 接收方用户ID
+     * @return SessionID
+     */
+    public int getSessionId(Integer userId, Integer receiveUserId){
+        SessionInfoEntity existSessionInfo = sessionInfoDao.selectBySessionKey(userId, receiveUserId);
+        Integer sessionId;
+        if(existSessionInfo == null){
+            // 新建会话
+            sessionId = sessionInfoDao.insertOne(userId, receiveUserId);
+        }else{
+            sessionId = existSessionInfo.getId();
+        }
+        return sessionId;
     }
 }

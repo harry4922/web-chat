@@ -1,7 +1,7 @@
 package com.hanslv.web.chat.handler;
 
 import com.alibaba.fastjson.JSON;
-import com.hanslv.web.chat.dto.ChatMessageDTO;
+import com.hanslv.web.chat.dto.MessageDto;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.enums.MessageStateEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -86,7 +86,7 @@ public class WebSocketHandler {
     @OnMessage
     public void onMessage(String messageJson){
         // 转换消息体
-        ChatMessageDTO messageEntity = JSON.parseObject(messageJson, ChatMessageDTO.class);
+        MessageDto messageEntity = JSON.parseObject(messageJson, MessageDto.class);
         // 发送方
         Integer sendUserId = messageEntity.getUserId();
         // 接收方
@@ -95,7 +95,11 @@ public class WebSocketHandler {
         String message = messageEntity.getMessage();
         log.info("接收到：" + sendUserId + "，发送给：" + receiveUserId + "，的消息：" + message);
         // 发送消息
-        sendMessage(sendUserId, receiveUserId, message);
+        boolean sendResult = sendMessage(sendUserId, receiveUserId, message);
+        // 持久化消息
+        if(sendResult){
+            messageHandler.insertMessage(sendUserId, receiveUserId, message, MessageStateEnum.RECEIVED.getCode());
+        }
     }
 
     /**

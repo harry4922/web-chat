@@ -2,6 +2,7 @@ package com.hanslv.web.chat.dao;
 
 import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.mapper.MessageInfoMapper;
+import com.hanslv.web.chat.po.MessageListPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -61,5 +62,15 @@ public class MessageInfoDao {
      */
     public void updateMessageStatus(Integer messageId, Integer status){
         messageInfoMapper.updateMessageStatus(messageId, status);
+    }
+
+    /**
+     * 获取当前用户相关的消息
+     * @param userId 用户ID
+     * @param status 消息状态
+     * @return 消息列表实体
+     */
+    public List<MessageListPo> messageList(Integer userId, int status){
+        return messageInfoMapper.messageList(userId, status);
     }
 }

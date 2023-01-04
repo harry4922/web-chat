@@ -1,6 +1,7 @@
 package com.hanslv.web.chat.mapper;
 
 import com.hanslv.web.chat.entity.MessageInfoEntity;
+import com.hanslv.web.chat.po.MessageListPo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -50,4 +51,14 @@ public interface MessageInfoMapper {
     void updateMessageStatus(
             @Param("messageId")Integer messageId,
             @Param("status")Integer status);
+
+    /**
+     * 获取消息列表
+     * @param userId 用户ID
+     * @param status 消息状态
+     * @return 消息列表信息
+     */
+    List<MessageListPo> messageList(
+            @Param("userId")Integer userId,
+            @Param("status")int status);
 }

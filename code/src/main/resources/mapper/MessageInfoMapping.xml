@@ -3,6 +3,7 @@
 <!--
  * MESSAGE_INFO
  * ID							ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
+ * 会话ID						SESSION_ID				BIGINT
  * 用户ID						USER_ID					BIGINT
  * 接收用户ID						RECEIVE_USER_ID			BIGINT
  * 消息信息						MESSAGE					VARCHAR(255)
@@ -23,17 +24,17 @@
     <!-- 插入单条 -->
     <insert id="insertOne" parameterType="com.hanslv.web.chat.entity.MessageInfoEntity">
         INSERT INTO MESSAGE_INFO
-            (USER_ID, RECEIVE_USER_ID, MESSAGE, STATUS)
-        VALUES (#{messageInfo.userId}, #{messageInfo.receiveUserId}, #{messageInfo.message}, #{messageInfo.status})
+            (USER_ID, SESSION_ID, RECEIVE_USER_ID, MESSAGE, STATUS)
+        VALUES (#{messageInfo.userId}, #{mssageInfo.sessionId}, #{messageInfo.receiveUserId}, #{messageInfo.message}, #{messageInfo.status})
     </insert>
 
     <!-- 批量插入 -->
     <insert id="insertBatch" parameterType="com.hanslv.web.chat.entity.MessageInfoEntity">
         INSERT INTO MESSAGE_INFO
-            (USER_ID, RECEIVE_USER_ID, MESSAGE, STATUS)
+            (USER_ID, SESSION_ID, RECEIVE_USER_ID, MESSAGE, STATUS)
         VALUES
         <foreach collection="messageInfoList" item="item" open="(" close=")" separator=",">
-            #{item.userId}, #{item.receiveUserId}, #{item.message}, #{item.status}
+            #{item.userId}, #{item.sessionId}, #{item.receiveUserId}, #{item.message}, #{item.status}
         </foreach>
     </insert>
 
@@ -41,4 +42,20 @@
     <update id="updateMessageStatus">
         UPDATE MESSAGE_INFO SET STATUS = #{status} WHERE ID = #{messageId}
     </update>
+
+    <!-- 获取当前用户相关的消息 -->
+    <select id="messageList" resultType="com.hanslv.web.chat.po.MessageListPo">
+        SELECT
+            a.ID AS messageId,
+            a.MESSAGE AS message,
+            a.STATUS AS messageStatus,
+            b.ID AS sendUserId,
+            b.NAME AS sendUserName,
+            c.ID AS receiveUserId,
+            c.NAME AS receiveUserName
+        FROM MESSAGE_INFO a LEFT JOIN USER_INFO b ON a.USER_ID = b.ID
+        LEFT JOIN USER_INFO c ON a.RECEIVE_USER_ID = c.ID
+        WHERE a.USER_ID = #{userId} OR a.RECEIVE_USER_ID = #{userId} AND a.STATUS = #{status}
+        ORDER BY a.CREATE_TIME;
+    </select>
 </mapper>

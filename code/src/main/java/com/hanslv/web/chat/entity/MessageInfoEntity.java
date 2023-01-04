@@ -12,6 +12,7 @@ import java.sql.Timestamp;
  *
  * MESSAGE_INFO
  * ID							ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
+ * 会话ID						SESSION_ID				BIGINT
  * 用户ID						USER_ID					BIGINT
  * 接收用户ID						RECEIVE_USER_ID			BIGINT
  * 消息信息						MESSAGE					VARCHAR(255)
@@ -24,6 +25,10 @@ public class MessageInfoEntity {
      * ID
      */
     private Integer id;
+    /**
+     * 会话ID
+     */
+    private Integer sessionId;
     /**
      * 用户ID
      */

@@ -55,7 +55,7 @@ public class MessageScheduled {
      * 对未发送成功的消息进行落库处理
      */
     @Async("scheduledsExecutor")
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 1000)
     public void insertMessage(){
         if(insertMessageLock.tryLock()) {
             try {
