@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 /**
  * @author : hansLv
  * @date : 2022/12/30 11:10
- * 主控制器
+ * 页面加载控制器
  */
 @Controller
-public class MainController {
+public class PageController {
 
     /**
      * 主页

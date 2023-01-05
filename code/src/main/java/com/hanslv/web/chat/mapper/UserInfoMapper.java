@@ -21,10 +21,20 @@ public interface UserInfoMapper {
     List<UserInfoEntity> selectAll();
 
     /**
+     * 根据用户名获取用户信息
+     * @param name 用户名
+     * @return 已存在用户信息
+     */
+    UserInfoEntity selectByName(
+            @Param("name")String name);
+
+    /**
      * 插入一条用户信息
      * @param userInfo 用户信息
+     * @return 用户ID
      */
     void insertOne(@Param("userInfo") UserInfoEntity userInfo);
+
 
     /**
      * 插入多条

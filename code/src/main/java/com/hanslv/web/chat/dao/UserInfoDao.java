@@ -27,6 +27,15 @@ public class UserInfoDao {
     }
 
     /**
+     * 根据用户名获取用户信息
+     * @param name 用户名
+     * @return 用户信息
+     */
+    public UserInfoEntity selectByName(String name){
+        return userInfoMapper.selectByName(name);
+    }
+
+    /**
      * 插入一条用户信息
      * @param userInfo 用户信息实体
      */
