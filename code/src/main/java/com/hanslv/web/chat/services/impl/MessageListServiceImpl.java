@@ -1,5 +1,7 @@
 package com.hanslv.web.chat.services.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.hanslv.web.chat.dao.MessageInfoDao;
 import com.hanslv.web.chat.dto.MessageListDto;
 import com.hanslv.web.chat.enums.MessageStateEnum;
@@ -9,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author lvcheng
@@ -31,11 +31,10 @@ public class MessageListServiceImpl implements MessageListService {
         List<MessageListPo> messageList = messageInfoDao.messageList(userId, MessageStateEnum.RECEIVED.getCode());
         // 拼装消息
         List<MessageListDto> resultList = new ArrayList<>();
-        Map<Integer, MessageListDto> resultMap = new HashMap<>(8);
-        messageList.forEach(messageInfo -> {
-
+        messageList.forEach(message -> {
+            MessageListDto result = JSONObject.parseObject(JSON.toJSONString(message), MessageListDto.class);
+            resultList.add(result);
         });
-
         return resultList;
     }
 }

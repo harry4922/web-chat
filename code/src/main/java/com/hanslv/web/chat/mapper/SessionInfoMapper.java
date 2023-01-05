@@ -22,20 +22,29 @@ public interface SessionInfoMapper {
     List<SessionInfoEntity> selectAll();
 
     /**
-     * 根据SessionKey获取
-     * @param sessionKeyA 正向SessionKey
-     * @param sessionKeyB 反向SessionKey
-     * @return 会话信息
+     * 根据用户ID查询Session
+     * @param userId 当前用户ID
+     * @param otherUserId 对方用户ID
+     * @return Session
      */
-    SessionInfoEntity selectBySessionKey(
-            @Param("sessionKeyA")String sessionKeyA,
-            @Param("sessionKeyB")String sessionKeyB);
+    SessionInfoEntity selectByUserId(
+            @Param("userId") Integer userId,
+            @Param("otherUserId")Integer otherUserId);
 
     /**
-     * 插入一条数据并返回ID
-     * @param sessionKey 会话KEY
-     * @return 当前会话ID
+     * 插入一条记录
+     * @param userId 用户ID
      */
-    Integer insertOne(
-            @Param("sessionKey")String sessionKey);
+    int insertOne(
+            @Param("userId")Integer userId);
+
+    /**
+     * 插入一条包含ID的记录
+     * @param id ID
+     * @param userId 用户ID
+     */
+    void insertOneWithId(
+            @Param("id")Integer id,
+            @Param("userId")Integer userId);
+
 }

@@ -2,9 +2,6 @@ package com.hanslv.web.chat.dto;
 
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author lvcheng
  * @version 1.0
@@ -14,19 +11,19 @@ import java.util.List;
 @Data
 public class MessageListDto {
     /**
+     * 会话ID
+     */
+    private Integer sessionId;
+    /**
      * 对方用户ID
      */
-    private Integer userId;
+    private Integer otherUserId;
     /**
      * 对方用户姓名
      */
-    private String userName;
+    private String otherUserName;
     /**
      * 最后消息
      */
-    private String lastMessage;
-    /**
-     * 消息列表
-     */
-    private List<MessageDto> messageList = new ArrayList<>();
+    private String latestMessage;
 }

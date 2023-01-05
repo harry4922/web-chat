@@ -11,32 +11,19 @@ import lombok.Data;
 @Data
 public class MessageListPo {
     /**
-     * 消息ID
+     * 会话ID
      */
-    private Integer messageId;
+    private Integer sessionId;
     /**
-     * 消息
+     * 对方用户ID
      */
-    private String message;
+    private Integer otherUserId;
     /**
-     * 消息状态
+     * 对方用户名称
      */
-    private int messageStatus;
+    private String otherUserName;
     /**
-     * 发送人ID
+     * 最后消息
      */
-    private Integer sendUserId;
-    /**
-     * 发送人名称
-     */
-    private String sendUserName;
-    /**
-     * 接收人ID
-     */
-    private Integer receiveUserId;
-    /**
-     * 接收人姓名
-     */
-    private String receiveUserName;
-
+    private String latestMessage;
 }

@@ -3,7 +3,8 @@
 <!--
  * SESSION_INFO
  * ID							ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
- * 关联人ID						RELATION_USER_ID		VARCHAR(255)
+ * 用户ID						USER_ID					BIGINT						PRIMARY KEY
+ * 创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
  -->
 <mapper namespace="com.hanslv.web.chat.mapper.SessionInfoMapper">
     <!-- 获取全部 -->
@@ -11,16 +12,27 @@
         SELECT * FROM SESSION_INFO;
     </select>
 
-    <!-- 根据SessionKey查询会话 -->
-    <select id="selectBySessionKey" resultType="com.hanslv.web.chat.entity.SessionInfoEntity">
-        SELECT * FROM SESSION_INFO WHERE RELATION_USER_ID = #{sessionKeyA} OR RELATION_USER_ID = #{sessionKeyB};
+    <!-- 根据双方用户ID查询会话 -->
+    <select id="selectByUserId" resultType="com.hanslv.web.chat.entity.SessionInfoEntity">
+        SELECT
+            a.ID AS id,
+            a.USER_ID AS userId,
+            a.CREATE_TIME AS createTime
+        FROM SESSION_INFO a INNER JOIN SESSION_INFO b ON a.ID = b.ID
+        WHERE a.USER_ID = #{userId} AND b.USER_ID = #{otherUserId};
     </select>
 
+
     <!-- 插入一条数据并返回ID -->
-    <insert id="insertOne" parameterType="string">
-        INSERT INTO SESSION_INFO (RELATION_USER_ID) VALUES (#{sessionKey});
+    <insert id="insertOne" parameterType="int">
+        INSERT INTO SESSION_INFO (USER_ID) VALUES (#{userId});
         <selectKey resultType="int" order="AFTER" keyProperty="id">
             SELECT LAST_INSERT_ID()
         </selectKey>
+    </insert>
+
+    <!-- 插入一条包含ID的记录 -->
+    <insert id="insertOneWithId">
+        INSERT INTO SESSION_INFO (ID, USER_ID) VALUES (#{id}, #{userId});
     </insert>
 </mapper>

@@ -2,6 +2,8 @@ package com.hanslv.web.chat.entity;
 
 import lombok.Data;
 
+import java.sql.Timestamp;
+
 /**
  * @author lvcheng
  * @version 1.0
@@ -10,7 +12,9 @@ import lombok.Data;
  *
  * SESSION_INFO
  * ID							ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
- * 关联人ID						RELATION_USER_ID		VARCHAR(255)
+ * 用户ID						USER_ID					BIGINT						PRIMARY KEY
+ * 创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
+ *
  */
 @Data
 public class SessionInfoEntity {
@@ -22,4 +26,8 @@ public class SessionInfoEntity {
      * 关联用户ID
      */
     private String relationUserId;
+    /**
+     * 创建时间
+     */
+    private Timestamp createTime;
 }

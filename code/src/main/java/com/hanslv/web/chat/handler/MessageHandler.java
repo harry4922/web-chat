@@ -4,7 +4,6 @@ import com.hanslv.web.chat.dao.MessageInfoDao;
 import com.hanslv.web.chat.dao.SessionInfoDao;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.entity.SessionInfoEntity;
-import com.hanslv.web.chat.enums.MessageStateEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -63,8 +62,9 @@ public class MessageHandler {
      * @param sendUserId 发送用户ID
      * @param receiveUserId 接收用户ID
      * @param message 消息
+     * @param status 消息状态
      */
-    public void handleNotPersistenceMessage(Integer sendUserId, Integer receiveUserId, String message){
+    public void insertMessage(Integer sendUserId, Integer receiveUserId, String message, int status){
         // 会话ID
         Integer sessionId = getSessionId(sendUserId, receiveUserId);
         // 实体
@@ -73,7 +73,7 @@ public class MessageHandler {
         messageInfoEntity.setUserId(sendUserId);
         messageInfoEntity.setReceiveUserId(receiveUserId);
         messageInfoEntity.setMessage(message);
-        messageInfoEntity.setStatus(MessageStateEnum.NOT_RECEIVED.getCode());
+        messageInfoEntity.setStatus(status);
         // 存入待持久化池
         if (nppbFlag.get()) {
             nppb.add(messageInfoEntity);
@@ -91,39 +91,18 @@ public class MessageHandler {
         messageInfoDao.updateMessageStatus(messageId, status);
     }
 
-
-    /**
-     * 插入一条消息
-     * @param userId 用户ID
-     * @param receiveUserId 接收方ID
-     * @param message 消息
-     * @param status 消息状态
-     */
-    public void insertMessage(Integer userId, Integer receiveUserId, String message, int status){
-        // 会话ID
-        Integer sessionId = getSessionId(userId, receiveUserId);
-        MessageInfoEntity info = new MessageInfoEntity();
-        info.setSessionId(sessionId);
-        info.setUserId(userId);
-        info.setReceiveUserId(receiveUserId);
-        info.setMessage(message);
-        info.setStatus(status);
-        messageInfoDao.insertOne(info);
-    }
-
-
     /**
      * 获取SessionId
      * @param userId 用户ID
-     * @param receiveUserId 接收方用户ID
+     * @param otherUserId 对方用户ID
      * @return SessionID
      */
-    public int getSessionId(Integer userId, Integer receiveUserId){
-        SessionInfoEntity existSessionInfo = sessionInfoDao.selectBySessionKey(userId, receiveUserId);
+    public int getSessionId(Integer userId, Integer otherUserId){
+        SessionInfoEntity existSessionInfo = sessionInfoDao.selectByUserId(userId, otherUserId);
         Integer sessionId;
         if(existSessionInfo == null){
             // 新建会话
-            sessionId = sessionInfoDao.insertOne(userId, receiveUserId);
+            sessionId = sessionInfoDao.insertSession(userId, otherUserId);
         }else{
             sessionId = existSessionInfo.getId();
         }

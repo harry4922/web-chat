@@ -131,12 +131,12 @@ public class WebSocketHandler {
             } catch (IOException e) {
                 log.error("消息发送失败，发送方：" + sendUserId + "，接收方：" + receiveUserId + "，消息信息：" + message, e);
                 // 发送异常则先将消息落库
-                messageHandler.handleNotPersistenceMessage(sendUserId, receiveUserId, message);
+                messageHandler.insertMessage(sendUserId, receiveUserId, message, MessageStateEnum.NOT_RECEIVED.getCode());
             }
         }else{
             log.info("消息发送失败，对方不在线，发送方：" + sendUserId + "，接收方：" + receiveUserId + "，消息信息：" + message);
             // 将消息落库
-            messageHandler.handleNotPersistenceMessage(sendUserId, receiveUserId, message);
+            messageHandler.insertMessage(sendUserId, receiveUserId, message, MessageStateEnum.NOT_RECEIVED.getCode());
         }
         return false;
     }

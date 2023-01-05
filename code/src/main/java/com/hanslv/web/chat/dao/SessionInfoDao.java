@@ -2,7 +2,6 @@ package com.hanslv.web.chat.dao;
 
 import com.hanslv.web.chat.entity.SessionInfoEntity;
 import com.hanslv.web.chat.mapper.SessionInfoMapper;
-import com.hanslv.web.chat.util.KeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -28,26 +27,28 @@ public class SessionInfoDao {
         return sessionInfoMapper.selectAll();
     }
 
+
     /**
-     * 根据SessionKey获取会话
-     * @param userId 发送方用户ID
-     * @param receiveUserId 接收方用户ID
-     * @return 会话信息
+     * 根据用户ID查询会话
+     * @param userId 用户ID
+     * @param otherUserId 对方用户ID
+     * @return 会话
      */
-    public SessionInfoEntity selectBySessionKey(Integer userId, Integer receiveUserId){
-        String sessionKeyA = KeyUtil.getSessionKey(userId, receiveUserId);
-        String sessionKeyB = KeyUtil.getSessionKey(receiveUserId, userId);
-        return sessionInfoMapper.selectBySessionKey(sessionKeyA, sessionKeyB);
+    public SessionInfoEntity selectByUserId(Integer userId, Integer otherUserId){
+        return sessionInfoMapper.selectByUserId(userId, otherUserId);
     }
 
     /**
-     * 插入一条会话
+     * 插入一条记录
      * @param userId 用户ID
-     * @param receiveUserId 接收方用户ID
-     * @return 会话ID
+     * @param otherUserId 对方用户ID
+     * @return SessionID
      */
-    public Integer insertOne(Integer userId, Integer receiveUserId){
-        String sessionKey = KeyUtil.getSessionKey(userId, receiveUserId);
-        return sessionInfoMapper.insertOne(sessionKey);
+    public int insertSession(Integer userId, Integer otherUserId){
+        int id = sessionInfoMapper.insertOne(userId);
+        sessionInfoMapper.insertOneWithId(id, otherUserId);
+        return id;
     }
+
+
 }
