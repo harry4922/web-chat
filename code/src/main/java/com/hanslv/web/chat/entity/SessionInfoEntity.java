@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * @description 会话信息表
  *
  * SESSION_INFO
- * ID							ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
+ * ID							ID						BIGINT						PRIMARY KEY
  * 用户ID						USER_ID					BIGINT						PRIMARY KEY
  * 创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
  *

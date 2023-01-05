@@ -18,7 +18,7 @@ public class MessageDto {
     /**
      * 对方用户ID
      */
-    private Integer toUserId;
+    private Integer receiveUserId;
     /**
      * 消息信息
      */

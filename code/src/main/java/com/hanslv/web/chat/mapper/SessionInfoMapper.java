@@ -32,18 +32,17 @@ public interface SessionInfoMapper {
             @Param("otherUserId")Integer otherUserId);
 
     /**
-     * 插入一条记录
-     * @param userId 用户ID
+     * 获取最大SessionID
+     * @return 最大SessionID
      */
-    int insertOne(
-            @Param("userId")Integer userId);
+    Integer selectMaxSessionId();
 
     /**
      * 插入一条包含ID的记录
      * @param id ID
      * @param userId 用户ID
      */
-    void insertOneWithId(
+    void insertOne(
             @Param("id")Integer id,
             @Param("userId")Integer userId);
 

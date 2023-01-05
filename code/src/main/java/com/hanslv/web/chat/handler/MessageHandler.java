@@ -2,6 +2,7 @@ package com.hanslv.web.chat.handler;
 
 import com.hanslv.web.chat.dao.MessageInfoDao;
 import com.hanslv.web.chat.dao.SessionInfoDao;
+import com.hanslv.web.chat.dto.MessageDto;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.entity.SessionInfoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,12 +60,14 @@ public class MessageHandler {
 
     /**
      * 处理待持久化消息
-     * @param sendUserId 发送用户ID
-     * @param receiveUserId 接收用户ID
      * @param message 消息
      * @param status 消息状态
      */
-    public void insertMessage(Integer sendUserId, Integer receiveUserId, String message, int status){
+    public void insertMessage(MessageDto message, int status){
+        Integer sendUserId = message.getUserId();
+        Integer receiveUserId = message.getReceiveUserId();
+        String messageStr = message.getMessage();
+
         // 会话ID
         Integer sessionId = getSessionId(sendUserId, receiveUserId);
         // 实体
@@ -72,7 +75,7 @@ public class MessageHandler {
         messageInfoEntity.setSessionId(sessionId);
         messageInfoEntity.setUserId(sendUserId);
         messageInfoEntity.setReceiveUserId(receiveUserId);
-        messageInfoEntity.setMessage(message);
+        messageInfoEntity.setMessage(messageStr);
         messageInfoEntity.setStatus(status);
         // 存入待持久化池
         if (nppbFlag.get()) {

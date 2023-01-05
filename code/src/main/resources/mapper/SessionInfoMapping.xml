@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--
  * SESSION_INFO
- * ID							ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
+ * ID							ID						BIGINT						PRIMARY KEY
  * 用户ID						USER_ID					BIGINT						PRIMARY KEY
  * 创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
  -->
@@ -22,17 +22,13 @@
         WHERE a.USER_ID = #{userId} AND b.USER_ID = #{otherUserId};
     </select>
 
-
-    <!-- 插入一条数据并返回ID -->
-    <insert id="insertOne" parameterType="int">
-        INSERT INTO SESSION_INFO (USER_ID) VALUES (#{userId});
-        <selectKey resultType="int" order="AFTER" keyProperty="id">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-    </insert>
+    <!-- 获取最大SessionID -->
+    <select id="selectMaxSessionId" resultType="int">
+        SELECT MAX(ID) FROM SESSION_INFO;
+    </select>
 
     <!-- 插入一条包含ID的记录 -->
-    <insert id="insertOneWithId">
+    <insert id="insertOne">
         INSERT INTO SESSION_INFO (ID, USER_ID) VALUES (#{id}, #{userId});
     </insert>
 </mapper>

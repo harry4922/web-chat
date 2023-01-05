@@ -1,6 +1,7 @@
 package com.hanslv.web.chat.handler;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.hanslv.web.chat.dto.MessageDto;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.enums.MessageStateEnum;
@@ -59,10 +60,9 @@ public class WebSocketHandler {
         // 将未读消息发送给用户
         notReceivedMessageList.forEach(message -> {
             Integer messageId = message.getId();
-            Integer sendUserId = message.getUserId();
-            String messageInfo = message.getMessage();
+            MessageDto messageDto = JSONObject.parseObject(JSON.toJSONString(message), MessageDto.class);
             // 发送消息
-            if(sendMessage(sendUserId, userId, messageInfo)){
+            if(sendMessage(messageDto)){
                 // 处理消息状态
                 messageHandler.updateMessageStatus(messageId, MessageStateEnum.RECEIVED.getCode());
             }
@@ -87,18 +87,12 @@ public class WebSocketHandler {
     public void onMessage(String messageJson){
         // 转换消息体
         MessageDto messageEntity = JSON.parseObject(messageJson, MessageDto.class);
-        // 发送方
-        Integer sendUserId = messageEntity.getUserId();
-        // 接收方
-        Integer receiveUserId = messageEntity.getToUserId();
-        // 消息信息
-        String message = messageEntity.getMessage();
-        log.info("接收到：" + sendUserId + "，发送给：" + receiveUserId + "，的消息：" + message);
+        log.info("接收到：" + JSON.toJSONString(messageEntity));
         // 发送消息
-        boolean sendResult = sendMessage(sendUserId, receiveUserId, message);
+        boolean sendResult = sendMessage(messageEntity);
         // 持久化消息
         if(sendResult){
-            messageHandler.insertMessage(sendUserId, receiveUserId, message, MessageStateEnum.RECEIVED.getCode());
+            messageHandler.insertMessage(messageEntity, MessageStateEnum.RECEIVED.getCode());
         }
     }
 
@@ -115,28 +109,30 @@ public class WebSocketHandler {
 
     /**
      * 发送消息
-     * @param sendUserId 发送用户ID
-     * @param receiveUserId 接收用户ID
      * @param message 消息
      * @return 是否发送成功
      */
-    private boolean sendMessage(Integer sendUserId, Integer receiveUserId, String message){
+    private boolean sendMessage(MessageDto message){
+        // 接收方
+        Integer receiveUserId = message.getReceiveUserId();
+        // 消息JSON
+        String messageJson = JSON.toJSONString(message);
         // 判断接收用户是否在线
         if(sessionPool.containsKey(receiveUserId)){
             Session receiveUserSession = sessionPool.get(receiveUserId);
             // 发送消息
             try {
-                receiveUserSession.getBasicRemote().sendText(message);
+                receiveUserSession.getBasicRemote().sendText(messageJson);
                 return true;
             } catch (IOException e) {
-                log.error("消息发送失败，发送方：" + sendUserId + "，接收方：" + receiveUserId + "，消息信息：" + message, e);
+                log.error("消息发送失败，消息信息：" + JSON.toJSONString(message), e);
                 // 发送异常则先将消息落库
-                messageHandler.insertMessage(sendUserId, receiveUserId, message, MessageStateEnum.NOT_RECEIVED.getCode());
+                messageHandler.insertMessage(message, MessageStateEnum.NOT_RECEIVED.getCode());
             }
         }else{
-            log.info("消息发送失败，对方不在线，发送方：" + sendUserId + "，接收方：" + receiveUserId + "，消息信息：" + message);
+            log.info("消息发送失败，对方不在线，消息信息：" + JSON.toJSONString(message));
             // 将消息落库
-            messageHandler.insertMessage(sendUserId, receiveUserId, message, MessageStateEnum.NOT_RECEIVED.getCode());
+            messageHandler.insertMessage(message, MessageStateEnum.NOT_RECEIVED.getCode());
         }
         return false;
     }
