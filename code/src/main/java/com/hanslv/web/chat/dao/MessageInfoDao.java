@@ -2,6 +2,7 @@ package com.hanslv.web.chat.dao;
 
 import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.mapper.MessageInfoMapper;
+import com.hanslv.web.chat.po.MessageInfoPo;
 import com.hanslv.web.chat.po.MessageListPo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,8 +34,18 @@ public class MessageInfoDao {
      * @param status 消息状态
      * @return 消息List
      */
-    public List<MessageInfoEntity> selectByUserIdAndStatus(Integer receiveUserId, Integer status){
+    public List<MessageInfoEntity> selectByUserIdAndStatus(Integer receiveUserId, int status){
         return messageInfoMapper.selectByUserIdAndStatus(receiveUserId, status);
+    }
+
+    /**
+     * 获取当前Session的聊天信息
+     * @param sessionId sessionID
+     * @param status 状态
+     * @return 聊天信息
+     */
+    public List<MessageInfoPo> selectBySessionAndStatus(Integer sessionId, int status){
+        return messageInfoMapper.selectBySessionAndStatus(sessionId, status);
     }
 
     /**

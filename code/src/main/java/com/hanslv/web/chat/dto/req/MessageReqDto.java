@@ -1,4 +1,4 @@
-package com.hanslv.web.chat.dto;
+package com.hanslv.web.chat.dto.req;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * 聊天消息实体
  */
 @Data
-public class MessageDto {
+public class MessageReqDto {
     /**
      * 用户ID
      */

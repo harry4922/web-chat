@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @RequestMapping("/messageList")
 @Controller
-public class MessageListController {
+public class MessageController {
 
 }

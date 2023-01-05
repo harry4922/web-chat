@@ -21,6 +21,18 @@
         SELECT * FROM MESSAGE_INFO WHERE STATUS = #{status} AND RECEIVE_USER_ID = #{receiveUserId}
     </select>
 
+    <!-- 获取当前Session的聊天信息 -->
+    <select id="selectBySessionAndStatus" resultType="com.hanslv.web.chat.po.MessageInfoPo">
+        SELECT
+            b.ID AS sendUserId,
+            b.NAME AS sendUserName,
+            a.MESSAGE AS message,
+            a.CREATE_TIME AS messageTime
+        FROM MESSAGE_INFO a INNER JOIN USER_INFO b ON a.USER_ID = b.ID
+        WHERE a.STATUS = #{status} AND a.SESSION_ID = #{sessionId}
+        ORDER BY a.CREATE_TIME;
+    </select>
+
     <!-- 插入单条 -->
     <insert id="insertOne" parameterType="com.hanslv.web.chat.entity.MessageInfoEntity">
         INSERT INTO MESSAGE_INFO

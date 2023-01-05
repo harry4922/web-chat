@@ -2,7 +2,7 @@ package com.hanslv.web.chat.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.hanslv.web.chat.dto.MessageDto;
+import com.hanslv.web.chat.dto.req.MessageReqDto;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.enums.MessageStateEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +60,7 @@ public class WebSocketHandler {
         // 将未读消息发送给用户
         notReceivedMessageList.forEach(message -> {
             Integer messageId = message.getId();
-            MessageDto messageDto = JSONObject.parseObject(JSON.toJSONString(message), MessageDto.class);
+            MessageReqDto messageDto = JSONObject.parseObject(JSON.toJSONString(message), MessageReqDto.class);
             // 发送消息
             if(sendMessage(messageDto)){
                 // 处理消息状态
@@ -86,7 +86,7 @@ public class WebSocketHandler {
     @OnMessage
     public void onMessage(String messageJson){
         // 转换消息体
-        MessageDto messageEntity = JSON.parseObject(messageJson, MessageDto.class);
+        MessageReqDto messageEntity = JSON.parseObject(messageJson, MessageReqDto.class);
         log.info("接收到：" + JSON.toJSONString(messageEntity));
         // 发送消息
         boolean sendResult = sendMessage(messageEntity);
@@ -112,7 +112,7 @@ public class WebSocketHandler {
      * @param message 消息
      * @return 是否发送成功
      */
-    private boolean sendMessage(MessageDto message){
+    private boolean sendMessage(MessageReqDto message){
         // 接收方
         Integer receiveUserId = message.getReceiveUserId();
         // 消息JSON

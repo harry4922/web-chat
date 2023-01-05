@@ -1,6 +1,7 @@
 package com.hanslv.web.chat.mapper;
 
 import com.hanslv.web.chat.entity.MessageInfoEntity;
+import com.hanslv.web.chat.po.MessageInfoPo;
 import com.hanslv.web.chat.po.MessageListPo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -29,7 +30,17 @@ public interface MessageInfoMapper {
      */
     List<MessageInfoEntity> selectByUserIdAndStatus(
             @Param("receiveUserId") Integer receiveUserId,
-            @Param("status")Integer status);
+            @Param("status")int status);
+
+    /**
+     * 获取当前Session的聊天信息
+     * @param sessionId sessionId
+     * @param status 消息状态
+     * @return 聊天信息
+     */
+    List<MessageInfoPo> selectBySessionAndStatus(
+            @Param("sessionId")Integer sessionId,
+            @Param("status")int status);
 
     /**
      * 插入单条

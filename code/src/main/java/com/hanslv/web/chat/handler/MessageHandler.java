@@ -2,7 +2,7 @@ package com.hanslv.web.chat.handler;
 
 import com.hanslv.web.chat.dao.MessageInfoDao;
 import com.hanslv.web.chat.dao.SessionInfoDao;
-import com.hanslv.web.chat.dto.MessageDto;
+import com.hanslv.web.chat.dto.req.MessageReqDto;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.entity.SessionInfoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,7 +63,7 @@ public class MessageHandler {
      * @param message 消息
      * @param status 消息状态
      */
-    public void insertMessage(MessageDto message, int status){
+    public void insertMessage(MessageReqDto message, int status){
         Integer sendUserId = message.getUserId();
         Integer receiveUserId = message.getReceiveUserId();
         String messageStr = message.getMessage();

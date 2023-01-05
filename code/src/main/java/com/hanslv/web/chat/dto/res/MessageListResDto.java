@@ -1,4 +1,4 @@
-package com.hanslv.web.chat.dto;
+package com.hanslv.web.chat.dto.res;
 
 import lombok.Data;
 
@@ -9,7 +9,7 @@ import lombok.Data;
  * @description 消息列表DTO
  */
 @Data
-public class MessageListDto {
+public class MessageListResDto {
     /**
      * 会话ID
      */
