@@ -4,6 +4,7 @@
  * SESSION_INFO
  * ID							ID						BIGINT						PRIMARY KEY
  * 用户ID						USER_ID					BIGINT						PRIMARY KEY
+ * 最后消息ID						LATEST_MESSAGE_ID		BIGINT
  * 创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
  -->
 <mapper namespace="com.hanslv.web.chat.mapper.SessionInfoMapper">
@@ -17,6 +18,7 @@
         SELECT
             a.ID AS id,
             a.USER_ID AS userId,
+            a.LATEST_MESSAGE_ID AS latestMessageId,
             a.CREATE_TIME AS createTime
         FROM SESSION_INFO a INNER JOIN SESSION_INFO b ON a.ID = b.ID
         WHERE a.USER_ID = #{userId} AND b.USER_ID = #{otherUserId};
@@ -29,6 +31,11 @@
 
     <!-- 插入一条包含ID的记录 -->
     <insert id="insertOne">
-        INSERT INTO SESSION_INFO (ID, USER_ID) VALUES (#{id}, #{userId});
+        INSERT INTO SESSION_INFO (ID, USER_ID, LATEST_MESSAGE_ID) VALUES (#{id}, #{userId}, #{latestMessageId});
     </insert>
+
+    <!-- 更新最后一条消息ID -->
+    <update id="updateSessionMessageId">
+        UPDATE SESSION_INFO SET LATEST_MESSAGE_ID = #{messageId} WHERE ID = #{sessionId} AND USER_ID = #{userId}
+    </update>
 </mapper>

@@ -34,4 +34,15 @@ public class TestMessageInfoDao extends BaseTest {
         List<MessageInfoEntity> notReceivedMessage = messageInfoDao.selectByUserIdAndStatus(223, MessageStateEnum.NOT_RECEIVED.getCode());
         notReceivedMessage.forEach(message -> log.info(message.toString()));
     }
+
+
+    @Test
+    public void testInsertOne(){
+        MessageInfoEntity entity = new MessageInfoEntity();
+        entity.setMessage("test");
+        entity.setUserId(3);
+        entity.setReceiveUserId(4);
+        entity.setSessionId(0);
+        messageInfoDao.insertOne(entity);
+    }
 }

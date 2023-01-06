@@ -1,10 +1,13 @@
-package com.hanslv.web.chat.util;
+package com.hanslv.web.chat.handler;
 
 import com.github.benmanes.caffeine.cache.Cache;
 import com.hanslv.web.chat.constants.CaffeineConstants;
+import com.hanslv.web.chat.po.TokenCachePo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -14,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @description Caffeine工具类
  */
 @Component
-public class CaffeineUtil {
+public class CaffeineHandler {
 
     @Autowired
     private Cache<String, Object> otherCache;
@@ -71,5 +74,59 @@ public class CaffeineUtil {
         // 获取session序号
         AtomicInteger index = getOtherCache(CaffeineConstants.SESSION_INDEX_KEY);
         return index.get();
+    }
+
+    /**
+     * 获取Token池
+     * @return Token池
+     */
+    public Map<Integer, TokenCachePo> getTokenPool(){
+        Map<Integer, TokenCachePo> tokenPool = getOtherCache(CaffeineConstants.TOKEN_KEY);
+        if(tokenPool == null){
+            tokenPool = new ConcurrentHashMap<>(8);
+            addOtherCache(CaffeineConstants.TOKEN_KEY, tokenPool);
+        }
+        return tokenPool;
+    }
+
+    /**
+     * 获取Token缓存对象
+     * @param userId 用户ID
+     * @return 缓存对象
+     */
+    public TokenCachePo getTokenCache(Integer userId){
+        // 获取Token池
+        Map<Integer, TokenCachePo> tokenPool = getTokenPool();
+        // 获取Token缓存对象
+        TokenCachePo tokenCachePo = tokenPool.get(userId);
+        if(tokenCachePo == null){
+            tokenCachePo = new TokenCachePo();
+            tokenCachePo.setUserId(userId);
+            tokenPool.put(userId, tokenCachePo);
+        }
+        return tokenCachePo;
+    }
+
+    /**
+     * 放置Token缓存对象
+     * @param userId 用户ID
+     * @param token Token
+     */
+    public void setToken(Integer userId, String token){
+        // 获取Token缓存对象
+        TokenCachePo tokenCachePo = getTokenCache(userId);
+        tokenCachePo.setToken(token);
+        tokenCachePo.setCreateTime(System.currentTimeMillis());
+    }
+
+    /**
+     * 获取Token
+     * @param userId 用户ID
+     * @return token
+     */
+    public String getToken(Integer userId){
+        // 获取Token缓存对象
+        TokenCachePo tokenCachePo = getTokenCache(userId);
+        return tokenCachePo.getToken();
     }
 }

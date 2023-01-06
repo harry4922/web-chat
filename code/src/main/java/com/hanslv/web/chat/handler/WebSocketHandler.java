@@ -23,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * WebSocket处理器
  */
 @Slf4j
-@ServerEndpoint("/ws/chat/{userId}")
+@ServerEndpoint("/ws/chat/{userId}/{token}")
 @Component
 public class WebSocketHandler {
 
@@ -37,10 +37,16 @@ public class WebSocketHandler {
      */
     private static MessageHandler messageHandler;
 
+    /**
+     * Token处理
+     */
+    private static TokenHandler tokenHandler;
+
 
     @Autowired
-    public void init(MessageHandler messageHandler){
+    public void init(MessageHandler messageHandler, TokenHandler tokenHandler){
         WebSocketHandler.messageHandler = messageHandler;
+        WebSocketHandler.tokenHandler = tokenHandler;
     }
 
 
@@ -48,9 +54,19 @@ public class WebSocketHandler {
      * 创建连接
      * @param session 会话
      * @param userId 用户ID
+     * @param token token
      */
     @OnOpen
-    public void onOpen(Session session, @PathParam("userId")Integer userId){
+    public void onOpen(
+            Session session,
+            @PathParam("userId")Integer userId,
+            @PathParam("token")String token) throws IOException {
+        // token校验
+        if(!tokenHandler.tokenCheck(userId, token)){
+            log.info("token校验不通过：userId" + userId);
+            session.close(new CloseReason(CloseReason.CloseCodes.NO_STATUS_CODE, "认证不通过"));
+            return;
+        }
         // 将当前会话放入连接池
         sessionPool.put(userId, session);
         log.info(userId + "上线了");
@@ -72,19 +88,32 @@ public class WebSocketHandler {
     /**
      * 关闭连接
      * @param userId 用户ID
+     * @param token token
      */
     @OnClose
-    public void onClose(@PathParam("userId")Integer userId){
+    public void onClose(@PathParam("userId")Integer userId, @PathParam("token")String token){
+        // token校验
+        if(!tokenHandler.tokenCheck(userId, token)){
+            log.info("token校验不通过：userId" + userId);
+            return;
+        }
         sessionPool.remove(userId);
         log.info(userId + "下线了");
     }
 
     /**
      * 收到消息
+     * @param userId 用户ID
+     * @param token token
      * @param messageJson 消息JSON
      */
     @OnMessage
-    public void onMessage(String messageJson){
+    public void onMessage(@PathParam("userId")Integer userId, @PathParam("token")String token, String messageJson){
+        // token校验
+        if(!tokenHandler.tokenCheck(userId, token)){
+            log.info("token校验不通过：userId" + userId);
+            return;
+        }
         // 转换消息体
         MessageReqDto messageEntity = JSON.parseObject(messageJson, MessageReqDto.class);
         log.info("接收到：" + JSON.toJSONString(messageEntity));

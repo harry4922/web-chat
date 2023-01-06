@@ -2,7 +2,7 @@ package com.hanslv.web.chat.dao;
 
 import com.hanslv.web.chat.entity.SessionInfoEntity;
 import com.hanslv.web.chat.mapper.SessionInfoMapper;
-import com.hanslv.web.chat.util.CaffeineUtil;
+import com.hanslv.web.chat.handler.CaffeineHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,7 @@ public class SessionInfoDao {
     private SessionInfoMapper sessionInfoMapper;
 
     @Autowired
-    private CaffeineUtil caffeineUtil;
+    private CaffeineHandler caffeineHandler;
 
     /**
      * 获取全部会话信息
@@ -59,14 +59,27 @@ public class SessionInfoDao {
      * 插入一条记录
      * @param userId 用户ID
      * @param otherUserId 对方用户ID
+     * @param latestMessageId 最后一条消息ID
      * @return SessionID
      */
-    public int insertSession(Integer userId, Integer otherUserId){
+    public int insertSession(Integer userId, Integer otherUserId, Integer latestMessageId){
         // 获取当前Session序号
-        int currentIndex = caffeineUtil.getNextSessionIndex();
-        sessionInfoMapper.insertOne(currentIndex, userId);
-        sessionInfoMapper.insertOne(currentIndex, otherUserId);
+        int currentIndex = caffeineHandler.getNextSessionIndex();
+        sessionInfoMapper.insertOne(currentIndex, userId, latestMessageId);
+        sessionInfoMapper.insertOne(currentIndex, otherUserId, latestMessageId);
         return currentIndex;
+    }
+
+    /**
+     * 更新Session最后消息ID
+     * @param sessionId sessionId
+     * @param messageId 消息Id
+     * @param userId 当前用户ID
+     * @param receiveUserId 接收用户ID
+     */
+    public void updateSessionMessageId(Integer sessionId, Integer messageId, Integer userId, Integer receiveUserId){
+        sessionInfoMapper.updateSessionMessageId(sessionId, messageId, userId);
+        sessionInfoMapper.updateSessionMessageId(sessionId, messageId, receiveUserId);
     }
 
 

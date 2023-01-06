@@ -21,4 +21,8 @@ public class TestSessionInfoDao extends BaseTest {
     @Autowired
     private SessionInfoDao sessionInfoDao;
 
+    @Test
+    public void testUpdateLatestMessageId(){
+        sessionInfoDao.updateSessionMessageId(1, 1, 1, 2);
+    }
 }

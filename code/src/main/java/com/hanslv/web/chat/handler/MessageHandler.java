@@ -6,11 +6,9 @@ import com.hanslv.web.chat.dto.req.MessageReqDto;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.entity.SessionInfoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * @author lvcheng
@@ -20,27 +18,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 @Component
 public class MessageHandler {
-
-    /**
-     * 待持久化消息池
-     */
-    @Qualifier("NPP")
-    @Autowired
-    private List<MessageInfoEntity> npp;
-
-    /**
-     * 备用待持久化消息池
-     */
-    @Qualifier("NPPB")
-    @Autowired
-    private List<MessageInfoEntity> nppb;
-
-    /**
-     * 是否使用备用待持久化消息池
-     */
-    @Qualifier("NPPBFlag")
-    @Autowired
-    private AtomicBoolean nppbFlag;
 
     @Autowired
     private MessageInfoDao messageInfoDao;
@@ -67,7 +44,6 @@ public class MessageHandler {
         Integer sendUserId = message.getUserId();
         Integer receiveUserId = message.getReceiveUserId();
         String messageStr = message.getMessage();
-
         // 会话ID
         Integer sessionId = getSessionId(sendUserId, receiveUserId);
         // 实体
@@ -77,12 +53,10 @@ public class MessageHandler {
         messageInfoEntity.setReceiveUserId(receiveUserId);
         messageInfoEntity.setMessage(messageStr);
         messageInfoEntity.setStatus(status);
-        // 存入待持久化池
-        if (nppbFlag.get()) {
-            nppb.add(messageInfoEntity);
-        } else {
-            npp.add(messageInfoEntity);
-        }
+        // 消息数据
+        int currentMessageId = messageInfoDao.insertOne(messageInfoEntity);
+        // 更新Session数据
+        sessionInfoDao.updateSessionMessageId(sessionId, currentMessageId, sendUserId, receiveUserId);
     }
 
     /**
@@ -105,7 +79,7 @@ public class MessageHandler {
         Integer sessionId;
         if(existSessionInfo == null){
             // 新建会话
-            sessionId = sessionInfoDao.insertSession(userId, otherUserId);
+            sessionId = sessionInfoDao.insertSession(userId, otherUserId, 0);
         }else{
             sessionId = existSessionInfo.getId();
         }

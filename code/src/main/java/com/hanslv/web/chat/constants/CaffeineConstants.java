@@ -11,4 +11,9 @@ public class CaffeineConstants {
      * Session序号
      */
     public static final String SESSION_INDEX_KEY = "session_index";
+
+    /**
+     * Token
+     */
+    public static final String TOKEN_KEY = "token";
 }

@@ -1,7 +1,7 @@
 package com.hanslv.web.chat.config;
 
 import com.hanslv.web.chat.dao.SessionInfoDao;
-import com.hanslv.web.chat.util.CaffeineUtil;
+import com.hanslv.web.chat.handler.CaffeineHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,12 +20,12 @@ public class SessionConfig {
     private SessionInfoDao sessionInfoDao;
 
     @Autowired
-    private CaffeineUtil caffeineUtil;
+    private CaffeineHandler caffeineHandler;
 
     @PostConstruct
     public void init(){
         // 初始化SessionIndex
         int maxSessionId = sessionInfoDao.selectMaxSessionId();
-        caffeineUtil.initSessionIndex(maxSessionId);
+        caffeineHandler.initSessionIndex(maxSessionId);
     }
 }

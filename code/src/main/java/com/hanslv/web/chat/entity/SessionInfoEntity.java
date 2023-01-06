@@ -13,6 +13,7 @@ import java.sql.Timestamp;
  * SESSION_INFO
  * ID							ID						BIGINT						PRIMARY KEY
  * 用户ID						USER_ID					BIGINT						PRIMARY KEY
+ * 最后消息ID						LATEST_MESSAGE_ID		BIGINT
  * 创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
  *
  */
@@ -23,9 +24,13 @@ public class SessionInfoEntity {
      */
     private Integer id;
     /**
-     * 关联用户ID
+     * 用户ID
      */
-    private String relationUserId;
+    private Integer userId;
+    /**
+     * 最后
+     */
+    private Integer latestMessageId;
     /**
      * 创建时间
      */

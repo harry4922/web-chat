@@ -5,6 +5,7 @@ import com.hanslv.web.chat.dao.UserInfoDao;
 import com.hanslv.web.chat.dto.res.LoginResDto;
 import com.hanslv.web.chat.dto.res.LogonResDto;
 import com.hanslv.web.chat.entity.UserInfoEntity;
+import com.hanslv.web.chat.handler.TokenHandler;
 import com.hanslv.web.chat.services.LoginService;
 import com.hanslv.web.chat.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,9 @@ public class LoginServiceImpl implements LoginService {
 
     @Autowired
     private UserInfoDao userInfoDao;
+
+    @Autowired
+    private TokenHandler tokenHandler;
 
     @Override
     public LogonResDto logon(String name, String password) {
@@ -53,6 +57,8 @@ public class LoginServiceImpl implements LoginService {
                 result.setResult(true);
                 result.setMessage(MessageConstants.INFO_LOGIN_SUCCESS);
                 result.setUserId(userInfo.getId());
+                // 生成Token
+                result.setToken(tokenHandler.initToken(userInfo.getId()));
             }else{
                 result.setResult(false);
                 result.setMessage(MessageConstants.ERR_LOGIN_PASS_WRONG);

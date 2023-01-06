@@ -41,9 +41,23 @@ public interface SessionInfoMapper {
      * 插入一条包含ID的记录
      * @param id ID
      * @param userId 用户ID
+     * @param latestMessageId 最后消息ID
      */
     void insertOne(
             @Param("id")Integer id,
+            @Param("userId")Integer userId,
+            @Param("latestMessageId")Integer latestMessageId);
+
+
+    /**
+     * 更新session最后一条消息ID
+     * @param sessionId sessionId
+     * @param messageId 消息ID
+     * @param userId 用户ID
+     */
+    void updateSessionMessageId(
+            @Param("sessionId")Integer sessionId,
+            @Param("messageId")Integer messageId,
             @Param("userId")Integer userId);
 
 }

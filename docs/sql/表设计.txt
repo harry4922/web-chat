@@ -1,24 +1,25 @@
 一、用户信息表
 USER_INFO
-ID								ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
-姓名							NAME					VARCHAR(255)
-密码							PASS					VARCHAR(255)
-创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
+ID								ID											BIGINT						PRIMARY KEY					AUTO_INCREMENT
+姓名							NAME										VARCHAR(255)
+密码							PASS										VARCHAR(255)
+创建时间						CREATE_TIME									TIMESTAMP					DEFAULT NOW()
 
 
 二、会话表
 SESSION_INFO
-ID								ID						BIGINT						PRIMARY KEY
-用户ID							USER_ID					BIGINT						PRIMARY KEY
-创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
+ID								ID											BIGINT						PRIMARY KEY
+用户ID							USER_ID										BIGINT						PRIMARY KEY
+最后消息ID						LATEST_MESSAGE_ID							BIGINT
+创建时间						CREATE_TIME									TIMESTAMP					DEFAULT NOW()
 
 
 三、消息表
 MESSAGE_INFO
-ID								ID						BIGINT						PRIMARY KEY					AUTO_INCREMENT
-会话ID							SESSION_ID				BIGINT
-用户ID							USER_ID					BIGINT
-接收用户ID						RECEIVE_USER_ID			BIGINT
-消息信息						MESSAGE					VARCHAR(255)
-消息状态						STATUS					INT
-创建时间						CREATE_TIME				TIMESTAMP					DEFAULT NOW()
+ID								ID											BIGINT						PRIMARY KEY					AUTO_INCREMENT
+会话ID							SESSION_ID									BIGINT
+用户ID							USER_ID										BIGINT
+接收用户ID						RECEIVE_USER_ID								BIGINT
+消息信息						MESSAGE										VARCHAR(255)
+消息状态						STATUS										INT
+创建时间						CREATE_TIME									TIMESTAMP					DEFAULT NOW()

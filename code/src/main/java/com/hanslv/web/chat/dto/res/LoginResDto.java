@@ -22,4 +22,8 @@ public class LoginResDto {
      * 返回消息
      */
     private String message;
+    /**
+     * Token
+     */
+    private String token;
 }

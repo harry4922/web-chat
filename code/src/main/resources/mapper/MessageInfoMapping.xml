@@ -34,10 +34,10 @@
     </select>
 
     <!-- 插入单条 -->
-    <insert id="insertOne" parameterType="com.hanslv.web.chat.entity.MessageInfoEntity">
+    <insert id="insertOne" parameterType="com.hanslv.web.chat.entity.MessageInfoEntity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO MESSAGE_INFO
             (USER_ID, SESSION_ID, RECEIVE_USER_ID, MESSAGE, STATUS)
-        VALUES (#{messageInfo.userId}, #{mssageInfo.sessionId}, #{messageInfo.receiveUserId}, #{messageInfo.message}, #{messageInfo.status})
+        VALUES (#{messageInfo.userId}, #{messageInfo.sessionId}, #{messageInfo.receiveUserId}, #{messageInfo.message}, #{messageInfo.status})
     </insert>
 
     <!-- 批量插入 -->
@@ -65,7 +65,7 @@
         FROM (SELECT ID, USER_ID FROM SESSION_INFO WHERE USER_ID = #{userId}) a
             LEFT JOIN SESSION_INFO b ON a.ID = b.ID
             LEFT JOIN USER_INFO c ON b.USER_ID = c.ID
-            LEFT JOIN MESSAGE_INFO d ON a.ID = d.SESSION_ID
+            LEFT JOIN MESSAGE_INFO d ON a.ID = d.SESSION_ID AND b.LATEST_MESSAGE_ID = d.ID
         WHERE b.USER_ID != #{userId} AND d.STATUS = #{status}
         GROUP BY b.ID;
     </select>
