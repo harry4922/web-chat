@@ -44,5 +44,6 @@ public class TestMessageInfoDao extends BaseTest {
         entity.setReceiveUserId(4);
         entity.setSessionId(0);
         messageInfoDao.insertOne(entity);
+        log.info(entity.toString());
     }
 }

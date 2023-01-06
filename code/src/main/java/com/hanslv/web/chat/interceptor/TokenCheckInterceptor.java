@@ -1,5 +1,6 @@
 package com.hanslv.web.chat.interceptor;
 
+import com.alibaba.fastjson.JSON;
 import com.hanslv.web.chat.constants.HeaderConstants;
 import com.hanslv.web.chat.handler.TokenHandler;
 import com.hanslv.web.chat.interfaces.TokenCheck;

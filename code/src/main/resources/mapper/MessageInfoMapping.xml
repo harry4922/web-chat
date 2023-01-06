@@ -34,7 +34,7 @@
     </select>
 
     <!-- 插入单条 -->
-    <insert id="insertOne" parameterType="com.hanslv.web.chat.entity.MessageInfoEntity" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertOne" parameterType="com.hanslv.web.chat.entity.MessageInfoEntity" useGeneratedKeys="true" keyProperty="messageInfo.id">
         INSERT INTO MESSAGE_INFO
             (USER_ID, SESSION_ID, RECEIVE_USER_ID, MESSAGE, STATUS)
         VALUES (#{messageInfo.userId}, #{messageInfo.sessionId}, #{messageInfo.receiveUserId}, #{messageInfo.message}, #{messageInfo.status})

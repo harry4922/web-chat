@@ -46,7 +46,7 @@ public interface MessageInfoMapper {
      * 插入单条
      * @param messageInfo 消息信息
      */
-    int insertOne(@Param("messageInfo") MessageInfoEntity messageInfo);
+    void insertOne(@Param("messageInfo") MessageInfoEntity messageInfo);
 
     /**
      * 批量插入

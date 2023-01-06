@@ -52,8 +52,8 @@ public class MessageInfoDao {
      * 插入单条消息
      * @param messageInfo 消息实体
      */
-    public int insertOne(MessageInfoEntity messageInfo){
-        return messageInfoMapper.insertOne(messageInfo);
+    public void insertOne(MessageInfoEntity messageInfo){
+        messageInfoMapper.insertOne(messageInfo);
     }
 
     /**

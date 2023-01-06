@@ -54,7 +54,8 @@ public class MessageHandler {
         messageInfoEntity.setMessage(messageStr);
         messageInfoEntity.setStatus(status);
         // 消息数据
-        int currentMessageId = messageInfoDao.insertOne(messageInfoEntity);
+        messageInfoDao.insertOne(messageInfoEntity);
+        int currentMessageId = messageInfoEntity.getId();
         // 更新Session数据
         sessionInfoDao.updateSessionMessageId(sessionId, currentMessageId, sendUserId, receiveUserId);
     }
