@@ -6,7 +6,14 @@ ID								ID											BIGINT						PRIMARY KEY					AUTO_INCREMENT
 创建时间						CREATE_TIME									TIMESTAMP					DEFAULT NOW()
 
 
-二、会话表
+二、好友关系列表
+FRIEND_INFO
+当前用户ID						USER_ID										BIGINT						PRIMARY KEY
+好友用户ID						FRIEND_USER_ID								BIGINT						PRIMARY KEY
+创建时间						CREATE_TIME									TIMESTAMP					DEFAULT NOW()
+
+
+三、会话表
 SESSION_INFO
 ID								ID											BIGINT						PRIMARY KEY
 用户ID							USER_ID										BIGINT						PRIMARY KEY
@@ -14,7 +21,7 @@ ID								ID											BIGINT						PRIMARY KEY
 创建时间						CREATE_TIME									TIMESTAMP					DEFAULT NOW()
 
 
-三、消息表
+四、消息表
 MESSAGE_INFO
 ID								ID											BIGINT						PRIMARY KEY					AUTO_INCREMENT
 会话ID							SESSION_ID									BIGINT
