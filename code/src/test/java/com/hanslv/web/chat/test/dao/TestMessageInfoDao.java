@@ -35,7 +35,6 @@ public class TestMessageInfoDao extends BaseTest {
         notReceivedMessage.forEach(message -> log.info(message.toString()));
     }
 
-
     @Test
     public void testInsertOne(){
         MessageInfoEntity entity = new MessageInfoEntity();

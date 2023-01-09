@@ -39,8 +39,16 @@ public class MessageListResDto extends BaseResDto{
          */
         private String otherUserName;
         /**
+         * 好友状态
+         */
+        private int friendStatus;
+        /**
          * 最后消息
          */
         private String latestMessage;
+        /**
+         * 消息状态
+         */
+        private int messageStatus;
     }
 }

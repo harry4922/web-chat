@@ -78,10 +78,9 @@ public class MessageInfoDao {
     /**
      * 获取当前用户相关的消息
      * @param userId 用户ID
-     * @param status 消息状态
      * @return 消息列表实体
      */
-    public List<MessageListPo> messageList(Integer userId, int status){
-        return messageInfoMapper.messageList(userId, status);
+    public List<MessageListPo> messageList(Integer userId){
+        return messageInfoMapper.messageList(userId);
     }
 }

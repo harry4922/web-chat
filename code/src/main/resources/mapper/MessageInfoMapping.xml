@@ -61,12 +61,15 @@
             a.ID AS sessionId,
             c.ID AS otherUserId,
             c.NAME AS otherUserName,
-            d.message AS latestMessage
+            d.STATUS AS friendStatus,
+            e.message AS latestMessage,
+            e.STATUS AS messageStatus
         FROM (SELECT ID, USER_ID FROM SESSION_INFO WHERE USER_ID = #{userId}) a
             LEFT JOIN SESSION_INFO b ON a.ID = b.ID
             LEFT JOIN USER_INFO c ON b.USER_ID = c.ID
-            LEFT JOIN MESSAGE_INFO d ON a.ID = d.SESSION_ID AND b.LATEST_MESSAGE_ID = d.ID
-        WHERE b.USER_ID != #{userId} AND d.STATUS = #{status}
+            LEFT JOIN FRIEND_INFO d ON c.ID = d.FRIEND_USER_ID AND d.USER_ID = #{userId}
+            LEFT JOIN MESSAGE_INFO e ON a.ID = e.SESSION_ID AND b.LATEST_MESSAGE_ID = e.ID
+        WHERE b.USER_ID != #{userId}
         GROUP BY b.ID;
     </select>
 </mapper>

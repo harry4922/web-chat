@@ -66,10 +66,8 @@ public interface MessageInfoMapper {
     /**
      * 获取消息列表
      * @param userId 用户ID
-     * @param status 消息状态
      * @return 消息列表信息
      */
     List<MessageListPo> messageList(
-            @Param("userId")Integer userId,
-            @Param("status")int status);
+            @Param("userId")Integer userId);
 }
