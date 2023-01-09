@@ -1,7 +1,6 @@
 package com.hanslv.web.chat.dao;
 
 import com.hanslv.web.chat.entity.FriendInfoEntity;
-import com.hanslv.web.chat.enums.FriendStatusEnum;
 import com.hanslv.web.chat.mapper.FriendInfoMapper;
 import com.hanslv.web.chat.po.FriendInfoPo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +52,15 @@ public class FriendInfoDao {
      */
     public void deleteFriendInfo(Integer userId, Integer friendUserId){
         friendInfoMapper.deleteFriendInfo(userId, friendUserId);
+    }
+
+    /**
+     * 更新好友状态
+     * @param userId 用户ID
+     * @param friendUserId 好友用户ID
+     * @param status 状态
+     */
+    public void updateFriendStatus(Integer userId, Integer friendUserId, int status){
+        friendInfoMapper.updateFriendStatus(userId, friendUserId, status);
     }
 }

@@ -31,4 +31,9 @@
     <delete id="deleteFriendInfo">
         DELETE FROM FRIEND_INFO WHERE USER_ID = #{userId} AND FRIEND_USER_ID = #{friendUserId}
     </delete>
+
+    <!-- 更新好友状态 -->
+    <update id="updateFriendStatus">
+        UPDATE FRIEND_INFO SET STATUS = #{status} WHERE USER_ID = #{userId} AND FRIEND_USER_ID = #{friendUserId}
+    </update>
 </mapper>

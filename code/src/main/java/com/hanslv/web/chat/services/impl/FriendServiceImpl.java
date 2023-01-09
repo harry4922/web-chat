@@ -40,10 +40,22 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public void addFriendReq(Integer userId, Integer friendUserID) {
+    public void addFriendReq(Integer userId, Integer friendUserId) {
         FriendInfoEntity friendInfoEntity = new FriendInfoEntity();
         friendInfoEntity.setUserId(userId);
-        friendInfoEntity.setFriendUserId(friendUserID);
+        friendInfoEntity.setFriendUserId(friendUserId);
         friendInfoEntity.setStatus(FriendStatusEnum.REQUEST.getCode());
+    }
+
+    @Override
+    public void confirmFriendReq(Integer userId, Integer friendUserId) {
+        // 更新好友信息状态，当前用户为库中对方好友用户ID
+        friendInfoDao.updateFriendStatus(friendUserId, userId, FriendStatusEnum.CONFIRM.getCode());
+        // 新建当前用户好友信息
+        FriendInfoEntity friendInfoEntity = new FriendInfoEntity();
+        friendInfoEntity.setUserId(userId);
+        friendInfoEntity.setFriendUserId(friendUserId);
+        friendInfoEntity.setStatus(FriendStatusEnum.CONFIRM.getCode());
+        friendInfoDao.insertOne(friendInfoEntity);
     }
 }

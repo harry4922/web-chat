@@ -23,4 +23,11 @@ public interface FriendService {
      * @param friendUserID 好友用户ID
      */
     void addFriendReq(Integer userId, Integer friendUserID);
+
+    /**
+     * 确认好友关系
+     * @param userId 用户ID
+     * @param friendUserId 好友用户ID
+     */
+    void confirmFriendReq(Integer userId, Integer friendUserId);
 }
