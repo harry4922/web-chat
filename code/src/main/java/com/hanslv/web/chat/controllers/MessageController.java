@@ -2,6 +2,7 @@ package com.hanslv.web.chat.controllers;
 
 import com.hanslv.web.chat.dto.req.MessageListDetailReqDto;
 import com.hanslv.web.chat.dto.req.MessageListReqDto;
+import com.hanslv.web.chat.dto.req.MessageStatusUpdateReqDto;
 import com.hanslv.web.chat.dto.res.MessageDetailListResDto;
 import com.hanslv.web.chat.dto.res.MessageListResDto;
 import com.hanslv.web.chat.interfaces.TokenCheck;
@@ -46,4 +47,15 @@ public class MessageController {
     public MessageDetailListResDto getMessageListDetail(@RequestBody MessageListDetailReqDto reqDto){
         return messageService.getMessageListDetail(reqDto.getSessionId());
     }
+
+    /**
+     * 批量更新消息状态
+     * @param reqDto 请求对象
+     */
+    @TokenCheck
+    @PostMapping("/update/mulit")
+    public void updateMessageStatus(MessageStatusUpdateReqDto reqDto){
+        messageService.updateMessageStatus(reqDto.getStatus(), reqDto.getMessageIdList());
+    }
+
 }

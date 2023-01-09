@@ -6,7 +6,7 @@
 
     <groupId>com.hanslv</groupId>
     <artifactId>web-chat</artifactId>
-    <version>0.0.18</version>
+    <version>0.0.19</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

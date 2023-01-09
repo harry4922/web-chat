@@ -11,6 +11,10 @@ import lombok.Data;
 @Data
 public class MessageInfoPo {
     /**
+     * 消息ID
+     */
+    private Integer messageId;
+    /**
      * 发送人ID
      */
     private Integer sendUserId;
@@ -26,4 +30,8 @@ public class MessageInfoPo {
      * 发送时间
      */
     private String messageTime;
+    /**
+     * 消息状态
+     */
+    private int messageStatus;
 }

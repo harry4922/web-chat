@@ -48,9 +48,11 @@ WHERE a.USER_ID = 3 AND b.USER_ID = 4;
 
 /*消息信息*/
 SELECT
+a.ID AS messageId,
 b.ID AS sendUserId,
 b.NAME AS sendUserName,
 a.MESSAGE AS message,
+a.STATUS AS messageStatus,
 a.CREATE_TIME AS messageTime
 FROM MESSAGE_INFO a INNER JOIN USER_INFO b ON a.USER_ID = b.ID
 WHERE a.STATUS = 1 AND a.SESSION_ID = 1;

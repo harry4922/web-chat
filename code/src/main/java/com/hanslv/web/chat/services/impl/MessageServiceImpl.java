@@ -57,4 +57,9 @@ public class MessageServiceImpl implements MessageService {
         });
         return resData;
     }
+
+    @Override
+    public void updateMessageStatus(int status, List<Integer> messageIdList) {
+        messageInfoDao.updateMultiMessageStatus(status, messageIdList);
+    }
 }

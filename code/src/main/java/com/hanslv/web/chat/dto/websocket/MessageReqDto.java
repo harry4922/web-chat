@@ -1,4 +1,4 @@
-package com.hanslv.web.chat.dto.req;
+package com.hanslv.web.chat.dto.websocket;
 
 import lombok.Data;
 

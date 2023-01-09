@@ -24,9 +24,11 @@
     <!-- 获取当前Session的聊天信息 -->
     <select id="selectBySessionAndStatus" resultType="com.hanslv.web.chat.po.MessageInfoPo">
         SELECT
+            a.ID AS messageId,
             b.ID AS sendUserId,
             b.NAME AS sendUserName,
             a.MESSAGE AS message,
+            a.STATUS AS messageStatus,
             a.CREATE_TIME AS messageTime
         FROM MESSAGE_INFO a INNER JOIN USER_INFO b ON a.USER_ID = b.ID
         WHERE a.STATUS = #{status} AND a.SESSION_ID = #{sessionId}
@@ -53,6 +55,14 @@
     <!-- 将消息更新为已读 -->
     <update id="updateMessageStatus">
         UPDATE MESSAGE_INFO SET STATUS = #{status} WHERE ID = #{messageId}
+    </update>
+
+    <!-- 更新多条消息状态 -->
+    <update id="updateMultiMessageStatus">
+        UPDATE MESSAGE_INFO SET STATUS = #{status} WHERE ID IN
+        <foreach collection="messageIdList" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
     </update>
 
     <!-- 获取当前用户相关的消息 -->

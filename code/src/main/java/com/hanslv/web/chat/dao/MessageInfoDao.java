@@ -76,6 +76,17 @@ public class MessageInfoDao {
     }
 
     /**
+     * 批量更新消息状态
+     * @param status 状态
+     * @param messageIdList 消息IDList
+     */
+    public void updateMultiMessageStatus(int status, List<Integer> messageIdList){
+        if(messageIdList != null && !messageIdList.isEmpty()){
+            messageInfoMapper.updateMultiMessageStatus(status, messageIdList);
+        }
+    }
+
+    /**
      * 获取当前用户相关的消息
      * @param userId 用户ID
      * @return 消息列表实体

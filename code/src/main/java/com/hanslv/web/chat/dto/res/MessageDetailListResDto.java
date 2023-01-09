@@ -27,6 +27,10 @@ public class MessageDetailListResDto extends BaseResDto{
     @Data
     public static class MessageDetailInfo{
         /**
+         * 消息ID
+         */
+        private Integer messageId;
+        /**
          * 用户ID
          */
         private Integer sendUserId;
@@ -42,5 +46,9 @@ public class MessageDetailListResDto extends BaseResDto{
          * 消息时间
          */
         private String messageTime;
+        /**
+         * 消息状态
+         */
+        private int messageStatus;
     }
 }
