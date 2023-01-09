@@ -16,7 +16,7 @@ import java.util.List;
  * @description
  */
 @Slf4j
-public class TestFriendINfoDao extends BaseTest {
+public class TestFriendInfoDao extends BaseTest {
     @Autowired
     private FriendInfoDao friendInfoDao;
 
@@ -26,10 +26,4 @@ public class TestFriendINfoDao extends BaseTest {
         allFriendInfo.forEach(info -> log.info(info.toString()));
     }
 
-    @Test
-    public void testInsertFriendInfo(){
-        Integer currentUserId = 1;
-        Integer friendUserId = 2;
-        friendInfoDao.insertFriendInfo(currentUserId, friendUserId);
-    }
 }

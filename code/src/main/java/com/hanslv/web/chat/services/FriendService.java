@@ -1,5 +1,7 @@
 package com.hanslv.web.chat.services;
 
+import com.hanslv.web.chat.dto.res.FriendListResDto;
+
 /**
  * @author lvcheng
  * @version 1.0
@@ -8,4 +10,17 @@ package com.hanslv.web.chat.services;
  */
 public interface FriendService {
 
+    /**
+     * 获取当前用户的好友列表
+     * @param userId 用户ID
+     * @return 好友列表
+     */
+    FriendListResDto getFriendList(Integer userId);
+
+    /**
+     * 添加好友请求
+     * @param userId 当前用户ID
+     * @param friendUserID 好友用户ID
+     */
+    void addFriendReq(Integer userId, Integer friendUserID);
 }

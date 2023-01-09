@@ -4,6 +4,7 @@
  * FRIEND_INFO
  * 当前用户ID						USER_ID										BIGINT						PRIMARY KEY
  * 好友用户ID						FRIEND_USER_ID								BIGINT						PRIMARY KEY
+ * 状态							STATUS										INT
  * 创建时间						CREATE_TIME									TIMESTAMP					DEFAULT NOW()
  -->
 <mapper namespace="com.hanslv.web.chat.mapper.FriendInfoMapper">
@@ -14,7 +15,7 @@
 
     <!-- 插入一条好友信息 -->
     <insert id="insertOne" parameterType="com.hanslv.web.chat.entity.FriendInfoEntity">
-        INSERT INTO FRIEND_INFO (USER_ID, FRIEND_USER_ID) VALUES (#{friendInfo.userId}, #{friendInfo.friendUserId})
+        INSERT INTO FRIEND_INFO (USER_ID, FRIEND_USER_ID, STATUS) VALUES (#{friendInfo.userId}, #{friendInfo.friendUserId}, #{friendInfo.status})
     </insert>
 
     <!-- 获取当前用户好友信息列表 -->
@@ -23,7 +24,7 @@
             b.ID AS frinedUserId,
             b.NAME AS friendUserName
         FROM FRIEND_INFO a INNER JOIN USER_INFO b ON a.FRIEND_USER_ID = b.ID
-        WHERE a.USER_ID = #{userId};
+        WHERE a.USER_ID = #{userId} AND STATUS = 2;
     </select>
 
     <!-- 删除好友信息 -->

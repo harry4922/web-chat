@@ -12,6 +12,7 @@ import java.sql.Timestamp;
  * FRIEND_INFO
  * 当前用户ID						USER_ID										BIGINT						PRIMARY KEY
  * 好友用户ID						FRIEND_USER_ID								BIGINT						PRIMARY KEY
+ * 状态							STATUS										INT
  * 创建时间						CREATE_TIME									TIMESTAMP					DEFAULT NOW()
  */
 @Data
@@ -24,6 +25,10 @@ public class FriendInfoEntity {
      * 好友用户ID
      */
     private Integer friendUserId;
+    /**
+     * 状态
+     */
+    private Integer status;
     /**
      * 创建时间
      */

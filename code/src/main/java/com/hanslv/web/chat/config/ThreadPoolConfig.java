@@ -12,6 +12,21 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  */
 @Configuration
 public class ThreadPoolConfig {
+
+    /**
+     * 默认线程池
+     * @return 线程池
+     */
+    @Bean("defaultExecutor")
+    public ThreadPoolTaskExecutor defaultExecutor(){
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(4);
+        executor.setMaxPoolSize(5);
+        executor.setKeepAliveSeconds(5);
+        return executor;
+    }
+
+
     /**
      * 定时任务线程池
      * @return 线程池
