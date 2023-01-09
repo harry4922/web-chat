@@ -1,7 +1,7 @@
 package com.hanslv.web.chat.services;
 
 import com.hanslv.web.chat.dto.res.MessageListResDto;
-import com.hanslv.web.chat.dto.res.MessageListDetailResDto;
+import com.hanslv.web.chat.dto.res.MessageDetailListResDto;
 
 import java.util.List;
 
@@ -18,12 +18,12 @@ public interface MessageService {
      * @param userId 当前用户ID
      * @return 消息列表
      */
-    List<MessageListResDto> getMessageList(Integer userId);
+    MessageListResDto getMessageList(Integer userId);
 
     /**
      * 获取Session的聊天信息
      * @param sessionId SessionID
-     * @return 聊天信息List
+     * @return 聊天信息列表
      */
-    List<MessageListDetailResDto> getMessageListDetail(Integer sessionId);
+    MessageDetailListResDto getMessageListDetail(Integer sessionId);
 }

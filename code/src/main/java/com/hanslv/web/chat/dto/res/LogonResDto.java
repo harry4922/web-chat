@@ -1,6 +1,7 @@
 package com.hanslv.web.chat.dto.res;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author lvcheng
@@ -8,6 +9,7 @@ import lombok.Data;
  * @date 2023/1/5 15:03
  * @description 注册返回对象
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class LogonResDto extends BaseResDto{
     /**

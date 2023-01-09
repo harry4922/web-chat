@@ -1,7 +1,7 @@
 package com.hanslv.web.chat.test.service;
 
 import com.hanslv.web.chat.dto.res.MessageListResDto;
-import com.hanslv.web.chat.dto.res.MessageListDetailResDto;
+import com.hanslv.web.chat.dto.res.MessageDetailListResDto;
 import com.hanslv.web.chat.services.MessageService;
 import com.hanslv.web.chat.test.BaseTest;
 import lombok.extern.slf4j.Slf4j;
@@ -24,13 +24,13 @@ public class TestMessageService extends BaseTest {
 
     @Test
     public void testGetMessageList(){
-        List<MessageListResDto> resultList = messageService.getMessageList(2);
-        resultList.forEach(result -> log.info(result.toString()));
+        MessageListResDto result = messageService.getMessageList(2);
+        result.getMessageInfoList().forEach(info -> log.info(info.toString()));
     }
 
     @Test
     public void testGetMessageListDetail(){
-        List<MessageListDetailResDto> resultList = messageService.getMessageListDetail(1);
-        resultList.forEach(result -> log.info(result.toString()));
+        MessageDetailListResDto result = messageService.getMessageListDetail(1);
+        result.getMessageList().forEach(info -> log.info(info.toString()));
     }
 }

@@ -2,7 +2,7 @@ package com.hanslv.web.chat.controllers;
 
 import com.hanslv.web.chat.dto.req.MessageListDetailReqDto;
 import com.hanslv.web.chat.dto.req.MessageListReqDto;
-import com.hanslv.web.chat.dto.res.MessageListDetailResDto;
+import com.hanslv.web.chat.dto.res.MessageDetailListResDto;
 import com.hanslv.web.chat.dto.res.MessageListResDto;
 import com.hanslv.web.chat.interfaces.TokenCheck;
 import com.hanslv.web.chat.services.MessageService;
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @author lvcheng
@@ -34,7 +32,7 @@ public class MessageController {
      */
     @TokenCheck
     @PostMapping("/")
-    public List<MessageListResDto> getMessageList(@RequestBody MessageListReqDto reqDto){
+    public MessageListResDto getMessageList(@RequestBody MessageListReqDto reqDto){
         return messageService.getMessageList(reqDto.getUserId());
     }
 
@@ -45,7 +43,7 @@ public class MessageController {
      */
     @TokenCheck
     @PostMapping("/detail")
-    public List<MessageListDetailResDto> getMessageListDetail(@RequestBody MessageListDetailReqDto reqDto){
+    public MessageDetailListResDto getMessageListDetail(@RequestBody MessageListDetailReqDto reqDto){
         return messageService.getMessageListDetail(reqDto.getSessionId());
     }
 }

@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.hanslv.web.chat.dao.MessageInfoDao;
 import com.hanslv.web.chat.dto.res.MessageListResDto;
-import com.hanslv.web.chat.dto.res.MessageListDetailResDto;
+import com.hanslv.web.chat.dto.res.MessageDetailListResDto;
 import com.hanslv.web.chat.enums.MessageStateEnum;
 import com.hanslv.web.chat.po.MessageInfoPo;
 import com.hanslv.web.chat.po.MessageListPo;
@@ -12,7 +12,6 @@ import com.hanslv.web.chat.services.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,28 +27,34 @@ public class MessageServiceImpl implements MessageService {
     private MessageInfoDao messageInfoDao;
 
     @Override
-    public List<MessageListResDto> getMessageList(Integer userId) {
+    public MessageListResDto getMessageList(Integer userId) {
         // 获取消息列表
         List<MessageListPo> messageList = messageInfoDao.messageList(userId, MessageStateEnum.RECEIVED.getCode());
+        // 结果
+        MessageListResDto result = new MessageListResDto();
         // 拼装消息
-        List<MessageListResDto> resultList = new ArrayList<>();
+        List<MessageListResDto.MessageListInfo> resultInfoList = result.getMessageInfoList();
         messageList.forEach(message -> {
-            MessageListResDto result = JSONObject.parseObject(JSON.toJSONString(message), MessageListResDto.class);
-            resultList.add(result);
+            MessageListResDto.MessageListInfo currentResult =
+                    JSONObject.parseObject(JSON.toJSONString(message), MessageListResDto.MessageListInfo.class);
+            resultInfoList.add(currentResult);
         });
-        return resultList;
+        return result;
     }
 
     @Override
-    public List<MessageListDetailResDto> getMessageListDetail(Integer sessionId) {
+    public MessageDetailListResDto getMessageListDetail(Integer sessionId) {
         List<MessageInfoPo> messageInfoList =
                 messageInfoDao.selectBySessionAndStatus(sessionId, MessageStateEnum.RECEIVED.getCode());
+
+        MessageDetailListResDto resData = new MessageDetailListResDto();
         // 拼装消息
-        List<MessageListDetailResDto> resultList = new ArrayList<>();
+        List<MessageDetailListResDto.MessageDetailInfo> resultList = resData.getMessageList();
         messageInfoList.forEach(message -> {
-            MessageListDetailResDto result = JSONObject.parseObject(JSON.toJSONString(message), MessageListDetailResDto.class);
+            MessageDetailListResDto.MessageDetailInfo result =
+                    JSONObject.parseObject(JSON.toJSONString(message), MessageDetailListResDto.MessageDetailInfo.class);
             resultList.add(result);
         });
-        return resultList;
+        return resData;
     }
 }
