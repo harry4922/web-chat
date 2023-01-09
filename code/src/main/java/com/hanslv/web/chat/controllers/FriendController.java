@@ -2,6 +2,7 @@ package com.hanslv.web.chat.controllers;
 
 import com.hanslv.web.chat.dto.req.FriendAddReqDto;
 import com.hanslv.web.chat.dto.req.FriendConfirmReqDto;
+import com.hanslv.web.chat.dto.req.FriendDeleteReqDto;
 import com.hanslv.web.chat.dto.req.FriendListReqDto;
 import com.hanslv.web.chat.dto.res.FriendListResDto;
 import com.hanslv.web.chat.interfaces.TokenCheck;
@@ -53,6 +54,16 @@ public class FriendController {
     @PostMapping("/confirm")
     public void friendConfirm(FriendConfirmReqDto reqDto){
         friendService.confirmFriendReq(reqDto.getUserId(), reqDto.getFriendUserId());
+    }
+
+    /**
+     * 删除好友
+     * @param reqDto 请求对象
+     */
+    @TokenCheck
+    @PostMapping("/delete")
+    public void friendDelete(FriendDeleteReqDto reqDto){
+        friendService.deleteFriend(reqDto.getUserId(), reqDto.getFriendUserId());
     }
 
 }

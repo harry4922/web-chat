@@ -58,4 +58,12 @@ public class FriendServiceImpl implements FriendService {
         friendInfoEntity.setStatus(FriendStatusEnum.CONFIRM.getCode());
         friendInfoDao.insertOne(friendInfoEntity);
     }
+
+    @Override
+    public void deleteFriend(Integer userId, Integer friendUserId) {
+        // 删除当前用户好友记录
+        friendInfoDao.deleteFriendInfo(userId, friendUserId);
+        // 修改对方好友状态
+        friendInfoDao.updateFriendStatus(friendUserId, userId, FriendStatusEnum.FRIEND_DELETE.getCode());
+    }
 }

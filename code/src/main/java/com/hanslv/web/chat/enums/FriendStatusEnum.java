@@ -14,7 +14,11 @@ public enum FriendStatusEnum {
     /**
      * 已确认
      */
-    CONFIRM(2, "已确认")
+    CONFIRM(2, "已确认"),
+    /**
+     * 对方已删除
+     */
+    FRIEND_DELETE(3, "对方已删除"),
 
     ;
 

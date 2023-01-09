@@ -30,4 +30,11 @@ public interface FriendService {
      * @param friendUserId 好友用户ID
      */
     void confirmFriendReq(Integer userId, Integer friendUserId);
+
+    /**
+     * 删除好友
+     * @param userId 用户ID
+     * @param friendUserId 好友用户ID
+     */
+    void deleteFriend(Integer userId, Integer friendUserId);
 }
