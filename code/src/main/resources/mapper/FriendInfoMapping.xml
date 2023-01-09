@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+ * FRIEND_INFO
+ * 当前用户ID						USER_ID										BIGINT						PRIMARY KEY
+ * 好友用户ID						FRIEND_USER_ID								BIGINT						PRIMARY KEY
+ * 创建时间						CREATE_TIME									TIMESTAMP					DEFAULT NOW()
+ -->
+<mapper namespace="com.hanslv.web.chat.mapper.FriendInfoMapper">
+    <!-- 获取全部 -->
+    <select id="selectAll" resultType="com.hanslv.web.chat.entity.FriendInfoEntity">
+        SELECT * FROM FRIEND_INFO;
+    </select>
+
+    <!-- 插入一条好友信息 -->
+    <insert id="insertOne" parameterType="com.hanslv.web.chat.entity.FriendInfoEntity">
+        INSERT INTO FRIEND_INFO (USER_ID, FRIEND_USER_ID) VALUES (#{friendInfo.userId}, #{friendInfo.friendUserId})
+    </insert>
+
+    <!-- 获取当前用户好友信息列表 -->
+    <select id="getFriendList" parameterType="int" resultType="com.hanslv.web.chat.po.FriendInfoPo">
+        SELECT
+            b.ID AS frinedUserId,
+            b.NAME AS friendUserName
+        FROM FRIEND_INFO a INNER JOIN USER_INFO b ON a.FRIEND_USER_ID = b.ID
+        WHERE a.USER_ID = #{userId};
+    </select>
+
+    <!-- 删除好友信息 -->
+    <delete id="deleteFriendInfo">
+        DELETE FROM FRIEND_INFO WHERE USER_ID = #{userId} AND FRIEND_USER_ID = #{friendUserId}
+    </delete>
+</mapper>

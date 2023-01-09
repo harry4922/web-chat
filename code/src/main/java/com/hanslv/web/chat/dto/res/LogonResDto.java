@@ -9,7 +9,7 @@ import lombok.Data;
  * @description 注册返回对象
  */
 @Data
-public class LogonResDto {
+public class LogonResDto extends BaseResDto{
     /**
      * 注册结果
      */

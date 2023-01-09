@@ -9,7 +9,7 @@ import lombok.Data;
  * @description 消息返回信息
  */
 @Data
-public class MessageListDetailResDto {
+public class MessageListDetailResDto extends BaseResDto{
     /**
      * 用户ID
      */
