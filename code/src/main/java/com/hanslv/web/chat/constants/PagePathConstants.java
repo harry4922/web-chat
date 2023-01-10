@@ -9,5 +9,5 @@ public class PagePathConstants {
     /**
      * 主页
      */
-    public static final String MAIN_PAGE = "main";
+    public static final String MAIN_PAGE = "/html/main.html";
 }

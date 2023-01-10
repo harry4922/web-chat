@@ -1,9 +1,7 @@
 package com.hanslv.web.chat.handler;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.hanslv.web.chat.dto.websocket.MessageReqDto;
-import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.enums.MessageStateEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 

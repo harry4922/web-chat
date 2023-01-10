@@ -1,16 +1,15 @@
 package com.hanslv.web.chat.interceptor;
 
-import com.alibaba.fastjson.JSON;
 import com.hanslv.web.chat.constants.HeaderConstants;
 import com.hanslv.web.chat.handler.TokenHandler;
 import com.hanslv.web.chat.interfaces.TokenCheck;
+import com.hanslv.web.chat.util.StringUtils;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import org.thymeleaf.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
