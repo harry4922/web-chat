@@ -2,7 +2,7 @@ package com.hanslv.web.chat.controllers;
 
 import com.hanslv.web.chat.constants.PagePathConstants;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author : hansLv
@@ -16,7 +16,7 @@ public class PageController {
      * 主页
      * @return 主页页面
      */
-    @RequestMapping("/mainPage")
+    @GetMapping("/mainPage")
     public String mainPage(){
         return PagePathConstants.MAIN_PAGE;
     }

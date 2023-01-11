@@ -8,7 +8,18 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: 123456
+  thymeleaf:
+      cache: false
+      prefix: classpath:/templates/
+      encoding: UTF-8 #编码
+      suffix: .html # 模板后缀
+  application:
+    name: web-chat
+  profiles:
+    active: dev
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:
     map-underscore-to-camel-case: true
+
+
