@@ -7,15 +7,20 @@ import lombok.Data;
 /**
  * @author lvcheng
  * @version 1.0
- * @date 2023/1/6 15:20
- * @description 消息列表请求对象
+ * @date 2023/1/9 16:04
+ * @description 删除好友请求对象
  */
-@ApiModel("消息列表request对象")
+@ApiModel("删除好友request对象")
 @Data
-public class MessageListReqDto {
+public class FriendDeleteReqDto {
     /**
-     * 当前用户ID
+     * 用户ID
      */
     @ApiModelProperty("用户ID")
     private Integer userId;
+    /**
+     * 好友用户ID
+     */
+    @ApiModelProperty("好友用户ID")
+    private Integer friendUserId;
 }

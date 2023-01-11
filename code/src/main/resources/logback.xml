@@ -3,7 +3,7 @@
     <contextName>VendPlat30</contextName>
     <timestamp key="TIMESTAMP" datePattern="yyyy-MM-dd" />
     <property name="LOGPATH" value="logs/" />
-    <property name="LOGPRE" value="jaeger-" />
+    <property name="LOGPRE" value="webChat-" />
     <!-- 输出到控制台 -->
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -36,10 +36,10 @@
     </logger>
     <!-- mybatis日志配置 -->
     <logger name="com.apache.ibatis" level="TRACE"/>
-    <logger name="org.apache.ibatis.transaction.managed" level="ERROR" addtivit="false"/>
-    <logger name="java.sql.Connection" level="ERROR"/>
-    <logger name="java.sql.Statement" level="ERROR"/>
-    <logger name="java.sql.PreparedStatement" level="ERROR"/>
+    <logger name="org.apache.ibatis.transaction.managed" level="INFO" addtivit="false"/>
+    <logger name="java.sql.Connection" level="INFO"/>
+    <logger name="java.sql.Statement" level="INFO"/>
+    <logger name="java.sql.PreparedStatement" level="INFO"/>
     <!-- activiti日志配置 -->
     <logger name="org.activiti" level="ERROR"/>
     <logger name="org.springframework.jdbc" level="ERROR"/>

@@ -10,6 +10,7 @@ ID								ID											BIGINT						PRIMARY KEY					AUTO_INCREMENT
 FRIEND_INFO
 当前用户ID						USER_ID										BIGINT						PRIMARY KEY
 好友用户ID						FRIEND_USER_ID								BIGINT						PRIMARY KEY
+状态							STATUS										INT
 创建时间						CREATE_TIME									TIMESTAMP					DEFAULT NOW()
 
 

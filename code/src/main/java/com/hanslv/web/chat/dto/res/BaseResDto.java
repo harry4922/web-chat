@@ -1,5 +1,6 @@
 package com.hanslv.web.chat.dto.res;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -13,9 +14,11 @@ public class BaseResDto {
     /**
      * 响应编码
      */
+    @ApiModelProperty("响应码")
     private int responseCode;
     /**
      * 相应信息
      */
+    @ApiModelProperty("响应提示信息")
     private String resMessage;
 }

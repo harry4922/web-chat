@@ -43,4 +43,15 @@ public interface FriendInfoMapper {
     void deleteFriendInfo(
             @Param("userId") Integer userId,
             @Param("friendUserId") Integer friendUserId);
+
+    /**
+     * 变更好友状态
+     * @param userId 用户ID
+     * @param friendUserId 好友用户ID
+     * @param status 状态
+     */
+    void updateFriendStatus(
+            @Param("userId")Integer userId,
+            @Param("friendUserId")Integer friendUserId,
+            @Param("status")int status);
 }

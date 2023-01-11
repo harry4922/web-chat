@@ -29,7 +29,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public MessageListResDto getMessageList(Integer userId) {
         // 获取消息列表
-        List<MessageListPo> messageList = messageInfoDao.messageList(userId, MessageStateEnum.RECEIVED.getCode());
+        List<MessageListPo> messageList = messageInfoDao.messageList(userId);
         // 结果
         MessageListResDto result = new MessageListResDto();
         // 拼装消息
@@ -56,5 +56,10 @@ public class MessageServiceImpl implements MessageService {
             resultList.add(result);
         });
         return resData;
+    }
+
+    @Override
+    public void updateMessageStatus(int status, List<Integer> messageIdList) {
+        messageInfoDao.updateMultiMessageStatus(status, messageIdList);
     }
 }

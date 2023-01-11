@@ -1,9 +1,7 @@
 package com.hanslv.web.chat.handler;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.hanslv.web.chat.dto.req.MessageReqDto;
-import com.hanslv.web.chat.entity.MessageInfoEntity;
+import com.hanslv.web.chat.dto.websocket.MessageReqDto;
 import com.hanslv.web.chat.enums.MessageStateEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +11,6 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -70,19 +67,6 @@ public class WebSocketHandler {
         // 将当前会话放入连接池
         sessionPool.put(userId, session);
         log.info(userId + "上线了");
-        // 获取当前用户未读取的消息
-        List<MessageInfoEntity> notReceivedMessageList =
-                messageHandler.getMessageByStatus(userId, MessageStateEnum.NOT_RECEIVED.getCode());
-        // 将未读消息发送给用户
-        notReceivedMessageList.forEach(message -> {
-            Integer messageId = message.getId();
-            MessageReqDto messageDto = JSONObject.parseObject(JSON.toJSONString(message), MessageReqDto.class);
-            // 发送消息
-            if(sendMessage(messageDto)){
-                // 处理消息状态
-                messageHandler.updateMessageStatus(messageId, MessageStateEnum.RECEIVED.getCode());
-            }
-        });
     }
 
     /**

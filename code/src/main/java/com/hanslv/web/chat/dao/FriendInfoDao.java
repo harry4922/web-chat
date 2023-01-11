@@ -37,22 +37,6 @@ public class FriendInfoDao {
     }
 
     /**
-     * 插入好友信息
-     * @param userId 当前用户ID
-     * @param friendUserId 好友用户ID
-     */
-    public void insertFriendInfo(Integer userId, Integer friendUserId){
-        FriendInfoEntity currentUserFriendInfo = new FriendInfoEntity();
-        currentUserFriendInfo.setUserId(userId);
-        currentUserFriendInfo.setFriendUserId(friendUserId);
-        FriendInfoEntity friendUserInfo = new FriendInfoEntity();
-        friendUserInfo.setUserId(friendUserId);
-        friendUserInfo.setFriendUserId(userId);
-        insertOne(currentUserFriendInfo);
-        insertOne(friendUserInfo);
-    }
-
-    /**
      * 获取好友列表
      * @param userId 当前用户ID
      * @return 好友列表
@@ -68,5 +52,15 @@ public class FriendInfoDao {
      */
     public void deleteFriendInfo(Integer userId, Integer friendUserId){
         friendInfoMapper.deleteFriendInfo(userId, friendUserId);
+    }
+
+    /**
+     * 更新好友状态
+     * @param userId 用户ID
+     * @param friendUserId 好友用户ID
+     * @param status 状态
+     */
+    public void updateFriendStatus(Integer userId, Integer friendUserId, int status){
+        friendInfoMapper.updateFriendStatus(userId, friendUserId, status);
     }
 }

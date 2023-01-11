@@ -2,7 +2,7 @@ package com.hanslv.web.chat.handler;
 
 import com.hanslv.web.chat.dao.MessageInfoDao;
 import com.hanslv.web.chat.dao.SessionInfoDao;
-import com.hanslv.web.chat.dto.req.MessageReqDto;
+import com.hanslv.web.chat.dto.websocket.MessageReqDto;
 import com.hanslv.web.chat.entity.MessageInfoEntity;
 import com.hanslv.web.chat.entity.SessionInfoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,15 +58,6 @@ public class MessageHandler {
         int currentMessageId = messageInfoEntity.getId();
         // 更新Session数据
         sessionInfoDao.updateSessionMessageId(sessionId, currentMessageId, sendUserId, receiveUserId);
-    }
-
-    /**
-     * 更新消息状态
-     * @param messageId 消息ID
-     * @param status 状态
-     */
-    public void updateMessageStatus(Integer messageId, Integer status){
-        messageInfoDao.updateMessageStatus(messageId, status);
     }
 
     /**

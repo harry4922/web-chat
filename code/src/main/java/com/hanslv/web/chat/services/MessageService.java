@@ -26,4 +26,11 @@ public interface MessageService {
      * @return 聊天信息列表
      */
     MessageDetailListResDto getMessageListDetail(Integer sessionId);
+
+    /**
+     * 更新消息状态
+     * @param status 状态
+     * @param messageIdList 消息ID列表
+     */
+    void updateMessageStatus(int status, List<Integer> messageIdList);
 }

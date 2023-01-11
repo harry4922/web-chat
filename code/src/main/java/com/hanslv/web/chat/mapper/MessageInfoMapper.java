@@ -64,12 +64,21 @@ public interface MessageInfoMapper {
             @Param("status")Integer status);
 
     /**
+     * 批量更新消息状态
+     * @param status 消息状态
+     * @param messageIdList 消息ID列表
+     */
+    void updateMultiMessageStatus(
+            @Param("status") int status,
+            @Param("messageIdList") List<Integer> messageIdList);
+
+    /**
      * 获取消息列表
      * @param userId 用户ID
-     * @param status 消息状态
      * @return 消息列表信息
      */
     List<MessageListPo> messageList(
-            @Param("userId")Integer userId,
-            @Param("status")int status);
+            @Param("userId")Integer userId);
+
+
 }
