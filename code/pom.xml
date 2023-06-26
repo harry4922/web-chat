@@ -6,7 +6,7 @@
 
     <groupId>com.hanslv</groupId>
     <artifactId>web-chat</artifactId>
-    <version>0.0.20</version>
+    <version>0.0.21</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -44,6 +44,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!--freemarker-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-freemarker</artifactId>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-devtools -->

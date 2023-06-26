@@ -1,25 +1,24 @@
-server:
-  port: 8779
 spring:
+  profiles:
+    active: dev-2
   main:
     allow-circular-references: true
-  datasource:
-    url: jdbc:mysql://localhost:3306/WEB_CHAT?useSSL=true&serverTimezone=GMT%2B8
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: 123456
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  thymeleaf:
-      cache: false
-      prefix: classpath:/templates/
-      encoding: UTF-8 #编码
-      suffix: .html # 模板后缀
+  freemarker:
+    #设置编码格式
+    charset: UTF-8
+    #后缀
+    suffix:
+    #文档类型
+    content-type: text/html
+    #模板前端
+    template-loader-path: classpath:/templates/
+    #启用模板
+    enabled: true
   application:
     name: web-chat
-  profiles:
-    active: dev
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   configuration:

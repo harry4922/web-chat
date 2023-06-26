@@ -7,7 +7,7 @@ package com.hanslv.web.chat.constants;
  */
 public class PagePathConstants {
     /**
-     * 主页
+     * PC端-主页
      */
-    public static final String MAIN_PAGE = "/html/main.html";
+    public static final String PC_MAIN_PAGE = "pc/main.html";
 }
